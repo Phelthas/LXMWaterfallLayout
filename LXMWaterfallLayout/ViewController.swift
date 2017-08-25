@@ -9,6 +9,7 @@
 import UIKit
 
 //UICollectionViewDelegateFlowLayout
+//UICollectionViewFlowLayout
 //UICollectionView
 
 class ViewController: UIViewController {

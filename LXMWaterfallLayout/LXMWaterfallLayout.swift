@@ -20,10 +20,9 @@ public let LXMCollectionElementKindCollectionViewFooter: String = "LXMCollection
 
 @objc public protocol LXMWaterfallLayoutDelegate: UICollectionViewDelegate {
     
-    /// 每个item的大小，delegate必须实现的方法
+    /// 请求delegate每个item的大小，如果没有实现该方法，那itemSize将是计算出来的边长为columnWidth的正方形
     /// 注意：如果返回的宽度小于计算出来的columnWidth,那实际显示的大小是将itemSize按比例缩放到“宽==columnWidth”的大小
-    @objc func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: LXMWaterfallLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
-    
+    @objc optional func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: LXMWaterfallLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     
     @objc optional func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: LXMWaterfallLayout, numberOfColumnsAt section: Int) -> Int
     
@@ -92,8 +91,7 @@ extension LXMWaterfallLayout {
     
     open override func prepare() {
         super.prepare()
-        guard let collectionView = self.collectionView,
-            let delegate = self.delegate else { return }
+        guard let collectionView = self.collectionView else { return }
         let collectionViewWidth = collectionView.bounds.width
         let numberOfSections = collectionView.numberOfSections
         if numberOfSections <= 0 {
@@ -189,8 +187,7 @@ extension LXMWaterfallLayout {
                 }
                 offsetY += contentHeight
                 
-                let itemSize = delegate.collectionView(collectionView, layout: self, sizeForItemAt: indexPath)
-                let size = self.scaledSize(forOriginalSize: itemSize, limitWidth: columnWidth)
+                let size = self.itemSize(atIndexPath: indexPath)
                 attributes.frame = CGRect(x: offsetX, y: offsetY, width: size.width, height: size.height)
                 self.columnHeights[section][columnIndex] = attributes.frame.maxY - contentHeight
                 self.sectionItemAttributes[indexPath.section][indexPath.item] = attributes
@@ -349,6 +346,7 @@ private extension LXMWaterfallLayout {
         }
     }
     
+    
     func nextColumnIndexForItem(atIndexPath indexPath: IndexPath) -> Int {
         //这里是直接按 最短优先 来排列，其他的方式感觉意义不大
         var index: Int = 0
@@ -392,6 +390,21 @@ public extension LXMWaterfallLayout {
             
         } else {
             return 0
+        }
+    }
+    
+    public func itemSize(atIndexPath indexPath: IndexPath) -> CGSize {
+        if let collectionView = self.collectionView,
+            let itemSize = self.delegate?.collectionView?(collectionView, layout: self, sizeForItemAt: indexPath) {
+            let columnWidth = self.columnWidth(atSection: indexPath.section)
+            if itemSize.width == columnWidth {
+                return itemSize
+            } else {
+                return self.scaledSize(forOriginalSize: itemSize, limitWidth: columnWidth)
+            }
+        } else {
+            let columnWidth = self.columnWidth(atSection: indexPath.section)
+            return CGSize(width: columnWidth, height: columnWidth)
         }
     }
 }
