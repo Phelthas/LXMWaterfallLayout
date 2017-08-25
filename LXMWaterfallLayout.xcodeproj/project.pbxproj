@@ -12,12 +12,12 @@
 		438100CF1F4D760700ABC6BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 438100CD1F4D760700ABC6BA /* Main.storyboard */; };
 		438100D11F4D760700ABC6BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 438100D01F4D760700ABC6BA /* Assets.xcassets */; };
 		438100D41F4D760700ABC6BA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 438100D21F4D760700ABC6BA /* LaunchScreen.storyboard */; };
-		438100DC1F4D765800ABC6BA /* LXMWaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438100DB1F4D765800ABC6BA /* LXMWaterfallLayout.swift */; };
 		43A8B2FB1F4EAE260004E087 /* TestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A8B2F91F4EAE260004E087 /* TestCollectionViewCell.swift */; };
 		43A8B2FC1F4EAE260004E087 /* TestCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43A8B2FA1F4EAE260004E087 /* TestCollectionViewCell.xib */; };
 		43A8B2FF1F4EC0020004E087 /* TestSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A8B2FD1F4EC0020004E087 /* TestSectionView.swift */; };
 		43A8B3001F4EC0020004E087 /* TestSectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43A8B2FE1F4EC0020004E087 /* TestSectionView.xib */; };
 		43E64B5F1F4FD35D00C6391C /* TwoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E64B5E1F4FD35D00C6391C /* TwoViewController.swift */; };
+		43E64B681F5010E500C6391C /* LXMWaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E64B671F5010E500C6391C /* LXMWaterfallLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,12 +28,12 @@
 		438100D01F4D760700ABC6BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		438100D31F4D760700ABC6BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		438100D51F4D760700ABC6BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		438100DB1F4D765800ABC6BA /* LXMWaterfallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LXMWaterfallLayout.swift; sourceTree = "<group>"; };
 		43A8B2F91F4EAE260004E087 /* TestCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCollectionViewCell.swift; sourceTree = "<group>"; };
 		43A8B2FA1F4EAE260004E087 /* TestCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestCollectionViewCell.xib; sourceTree = "<group>"; };
 		43A8B2FD1F4EC0020004E087 /* TestSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSectionView.swift; sourceTree = "<group>"; };
 		43A8B2FE1F4EC0020004E087 /* TestSectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestSectionView.xib; sourceTree = "<group>"; };
 		43E64B5E1F4FD35D00C6391C /* TwoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoViewController.swift; sourceTree = "<group>"; };
+		43E64B671F5010E500C6391C /* LXMWaterfallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LXMWaterfallLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +66,7 @@
 		438100C81F4D760700ABC6BA /* LXMWaterfallLayout */ = {
 			isa = PBXGroup;
 			children = (
+				43E64B661F5010E500C6391C /* LXMWaterfallLayout */,
 				438100C91F4D760700ABC6BA /* AppDelegate.swift */,
 				438100CB1F4D760700ABC6BA /* ViewController.swift */,
 				43E64B5E1F4FD35D00C6391C /* TwoViewController.swift */,
@@ -73,11 +74,18 @@
 				43A8B2FA1F4EAE260004E087 /* TestCollectionViewCell.xib */,
 				43A8B2FD1F4EC0020004E087 /* TestSectionView.swift */,
 				43A8B2FE1F4EC0020004E087 /* TestSectionView.xib */,
-				438100DB1F4D765800ABC6BA /* LXMWaterfallLayout.swift */,
 				438100CD1F4D760700ABC6BA /* Main.storyboard */,
 				438100D01F4D760700ABC6BA /* Assets.xcassets */,
 				438100D21F4D760700ABC6BA /* LaunchScreen.storyboard */,
 				438100D51F4D760700ABC6BA /* Info.plist */,
+			);
+			path = LXMWaterfallLayout;
+			sourceTree = "<group>";
+		};
+		43E64B661F5010E500C6391C /* LXMWaterfallLayout */ = {
+			isa = PBXGroup;
+			children = (
+				43E64B671F5010E500C6391C /* LXMWaterfallLayout.swift */,
 			);
 			path = LXMWaterfallLayout;
 			sourceTree = "<group>";
@@ -160,7 +168,7 @@
 				438100CC1F4D760700ABC6BA /* ViewController.swift in Sources */,
 				438100CA1F4D760700ABC6BA /* AppDelegate.swift in Sources */,
 				43A8B2FB1F4EAE260004E087 /* TestCollectionViewCell.swift in Sources */,
-				438100DC1F4D765800ABC6BA /* LXMWaterfallLayout.swift in Sources */,
+				43E64B681F5010E500C6391C /* LXMWaterfallLayout.swift in Sources */,
 				43A8B2FF1F4EC0020004E087 /* TestSectionView.swift in Sources */,
 				43E64B5F1F4FD35D00C6391C /* TwoViewController.swift in Sources */,
 			);

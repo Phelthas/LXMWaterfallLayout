@@ -86,8 +86,10 @@ extension ViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0 {
-            return 0
+        if section == 2 {
+            return 5
+        } else if section == 1 {
+            return 10
         } else {
             return dataArray.count
         }
@@ -162,7 +164,7 @@ extension ViewController: LXMWaterfallLayoutDelegate {
         } else if section == 1 {
             return 10
         } else {
-            return 0
+            return 30
         }
     }
     
@@ -172,15 +174,15 @@ extension ViewController: LXMWaterfallLayoutDelegate {
         } else if section == 1 {
             return 10
         } else {
-            return 0
+            return 30
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: LXMWaterfallLayout, heightForSectionHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
-            return 0
-        } else if section == 1 {
             return 100
+        } else if section == 1 {
+            return 50
         } else {
             return 0
         }
@@ -188,9 +190,9 @@ extension ViewController: LXMWaterfallLayoutDelegate {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: LXMWaterfallLayout, heightForSectionFooterInSection section: Int) -> CGFloat {
         if section == 0 {
-            return 0
-        } else if section == 1 {
             return 50
+        } else if section == 1 {
+            return 20
         } else {
             return 0
         }
@@ -204,7 +206,7 @@ extension ViewController: LXMWaterfallLayoutDelegate {
         } else if section == 1 {
             return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         } else {
-            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            return UIEdgeInsets(top: 30, left: 30, bottom: 30, right: 30)
         }
     }
     
