@@ -2,8 +2,9 @@
 A collectionViewLayout layout cells like waterfall, which add the missing collectionViewHeader and collectionViewFooter.
 
 LXMWaterfallLayout is inspired by [CHTCollectionViewWaterfallLayout](https://github.com/chiahsien/CHTCollectionViewWaterfallLayout), and made several improvements to make it easier to use. It is subclass of UICollectionViewLayout and it's usage is just like UICollectionViewFlowLayout.
+![screenshot](https://github.com/Phelthas/LXMWaterfallLayout/blob/master/ScreenShots/LXMWaterfallLayout.gif)
 
-
+[这里](http://www.jianshu.com/p/82daa5db4a74)有一篇总结
 ## Requirements
 Swift3.0    
 Xcode8.0 +    
