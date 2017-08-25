@@ -8,6 +8,12 @@ LXMWaterfallLayout is inspired by [CHTCollectionViewWaterfallLayout](https://git
 Swift3.0    
 Xcode8.0 +    
 
+## Install
+1, CocoaPods    
+   add `pod 'LXMWaterfallLayout'` to your podfile and run `pod install`    
+2, mannul    
+   drag `LXMWaterfallLayout.swift` into your project 
+
 ## How to use
 It is just like UICollectionViewFlowLayout, all you have to do is `LXMWaterfallLayout()` and assign it to a collectionView
 
@@ -15,6 +21,8 @@ It is just like UICollectionViewFlowLayout, all you have to do is `LXMWaterfallL
 ```
 if (find any bug || have any problem) {
    feel free to open an issue or pull request
+} else {
+   star it if it helps
 }
 ```
 I will try my best to help as soon as I see it~
