@@ -26,7 +26,7 @@ class ViewController: UIViewController {
         layout.collectionViewFooterHeight = 300
         
         let collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: layout)
-//        collectionView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
+//        collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10)
         collectionView.backgroundColor = UIColor.white
         collectionView.delegate = self
         collectionView.dataSource = self
