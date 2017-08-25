@@ -1,32 +1,22 @@
 //
-//  ViewController.swift
+//  TwoViewController.swift
 //  LXMWaterfallLayout
 //
-//  Created by luxiaoming on 2017/8/23.
+//  Created by luxiaoming on 2017/8/25.
 //  Copyright © 2017年 duowan. All rights reserved.
 //
 
 import UIKit
 
-//UICollectionViewDelegateFlowLayout
-//UICollectionViewFlowLayout
-//UICollectionView
-
-class ViewController: UIViewController {
-
+class TwoViewController: UIViewController {
     fileprivate lazy var collectionView: UICollectionView = {
-        let layout = LXMWaterfallLayout()
-        layout.columnCount = 3
-        layout.minimumColumnSpacing = 30
+        let layout = UICollectionViewFlowLayout()
+        
         layout.minimumInteritemSpacing = 20
         layout.sectionInset = UIEdgeInsets(top: 10, left: 20, bottom: 30, right: 40)
-        layout.sectionHeaderHeight = 100
-        layout.sectionFooterHeight = 50
-        layout.collectionViewHeaderHeight = 200
-        layout.collectionViewFooterHeight = 300
         
         let collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: layout)
-//        collectionView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
+        collectionView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
         collectionView.backgroundColor = UIColor.white
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -34,14 +24,11 @@ class ViewController: UIViewController {
         collectionView.register(nib, forCellWithReuseIdentifier: TestCollectionViewCellIdentifier)
         
         let sectionNib = UINib(nibName: "TestSectionView", bundle: nil)
-        collectionView.register(sectionNib, forSupplementaryViewOfKind: LXMCollectionElementKindSectionHeader , withReuseIdentifier: TestSectionViewIdentifier)
-        collectionView.register(sectionNib, forSupplementaryViewOfKind: LXMCollectionElementKindSectionFooter, withReuseIdentifier: TestSectionViewIdentifier)
-        collectionView.register(sectionNib, forSupplementaryViewOfKind: LXMCollectionElementKindCollectionViewHeader , withReuseIdentifier: TestSectionViewIdentifier)
-        collectionView.register(sectionNib, forSupplementaryViewOfKind: LXMCollectionElementKindCollectionViewFooter, withReuseIdentifier: TestSectionViewIdentifier)
-        
+        collectionView.register(sectionNib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader , withReuseIdentifier: TestSectionViewIdentifier)
+        collectionView.register(sectionNib, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: TestSectionViewIdentifier)
         return collectionView
     }()
-
+    
     
     fileprivate var dataArray: [String] = {
         var dataArray = [String]()
@@ -58,10 +45,12 @@ class ViewController: UIViewController {
         }
         return sizeArray
     }()
+
+
 }
 
 // MARK: - Lifecycle
-extension ViewController {
+extension TwoViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,7 +68,7 @@ extension ViewController {
 
 
 // MARK: - UICollectionViewDataSource
-extension ViewController: UICollectionViewDataSource {
+extension TwoViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 3
@@ -101,26 +90,16 @@ extension ViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == LXMCollectionElementKindSectionHeader {
+        if kind == UICollectionElementKindSectionHeader {
             let sectionView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TestSectionViewIdentifier, for: indexPath) as! TestSectionView
             sectionView.backgroundColor = UIColor.red
             sectionView.nameLabel.text = "sectionHeader \(indexPath.section)"
             return sectionView
             
-        } else if kind == LXMCollectionElementKindSectionFooter {
+        } else if kind == UICollectionElementKindSectionFooter {
             let sectionView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TestSectionViewIdentifier, for: indexPath) as! TestSectionView
             sectionView.backgroundColor = UIColor.blue
             sectionView.nameLabel.text = "sectionFooter \(indexPath.section)"
-            return sectionView
-        } else if kind == LXMCollectionElementKindCollectionViewHeader {
-            let sectionView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TestSectionViewIdentifier, for: indexPath) as! TestSectionView
-            sectionView.backgroundColor = UIColor.yellow
-            sectionView.nameLabel.text = "collectionViewHeader"
-            return sectionView
-        } else if kind == LXMCollectionElementKindCollectionViewFooter {
-            let sectionView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TestSectionViewIdentifier, for: indexPath) as! TestSectionView
-            sectionView.backgroundColor = UIColor.green
-            sectionView.nameLabel.text = "collectionViewFooter"
             return sectionView
         } else {
             return UICollectionReusableView()
@@ -130,7 +109,7 @@ extension ViewController: UICollectionViewDataSource {
 
 
 // MARK: - UICollectionViewDelegate
-extension ViewController: UICollectionViewDelegate {
+extension TwoViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 0 && indexPath.item == 0 {
@@ -141,22 +120,13 @@ extension ViewController: UICollectionViewDelegate {
     }
 }
 
-extension ViewController: LXMWaterfallLayoutDelegate {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: LXMWaterfallLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+extension TwoViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return sizeArray[indexPath.item]
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: LXMWaterfallLayout, numberOfColumnsAt section: Int) -> Int {
-        if section == 0 {
-            return 3
-        } else if section == 1 {
-            return 2
-        } else {
-            return 1
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: LXMWaterfallLayout, minimumColumnSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         if section == 0 {
             return 20
         } else if section == 1 {
@@ -166,7 +136,7 @@ extension ViewController: LXMWaterfallLayoutDelegate {
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: LXMWaterfallLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         if section == 0 {
             return 20
         } else if section == 1 {
@@ -176,29 +146,28 @@ extension ViewController: LXMWaterfallLayoutDelegate {
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: LXMWaterfallLayout, heightForSectionHeaderInSection section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section == 0 {
-            return 0
+            return CGSize(width: 100, height: 0)
         } else if section == 1 {
-            return 100
+            return CGSize(width: 100, height: 100)
         } else {
-            return 0
+            return CGSize.zero
+        }
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        if section == 0 {
+            return CGSize(width: 100, height: 0)
+        } else if section == 1 {
+            return CGSize(width: 100, height: 50)
+        } else {
+            return CGSize.zero
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: LXMWaterfallLayout, heightForSectionFooterInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 0
-        } else if section == 1 {
-            return 50
-        } else {
-            return 0
-        }
-    }
-    
-    
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: LXMWaterfallLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         if section == 0 {
             return UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         } else if section == 1 {
@@ -210,4 +179,3 @@ extension ViewController: LXMWaterfallLayoutDelegate {
     
     
 }
-

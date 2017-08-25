@@ -169,9 +169,8 @@ extension LXMWaterfallLayout {
             }
             
             let itemCount = collectionView.numberOfItems(inSection: section)
-            if itemCount > 0 { //注意：如果当前section的item个数为0，那即使有inset也不用处理
-                contentHeight += inset.top
-            }
+
+            contentHeight += inset.top
             
             //sectionItem
             let columnWidth = self.columnWidth(atSection: section)
@@ -198,9 +197,7 @@ extension LXMWaterfallLayout {
                 contentHeight += maxColumnHeight
             }
             
-            if itemCount > 0 { //注意：如果当前section的item个数为0，那即使有inset也不用处理
-                contentHeight += inset.bottom
-            }
+            contentHeight += inset.bottom
             
             //sectionFooter
             let sectionFooterHeight = self.sectionFooterHeight(atSection: section)
