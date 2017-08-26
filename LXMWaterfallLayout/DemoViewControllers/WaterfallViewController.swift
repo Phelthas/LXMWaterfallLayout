@@ -1,20 +1,24 @@
 //
-//  ViewController.swift
+//  WaterfallViewController.swift
 //  LXMWaterfallLayout
 //
-//  Created by luxiaoming on 2017/8/23.
+//  Created by luxiaoming on 2017/8/26.
 //  Copyright © 2017年 duowan. All rights reserved.
 //
 
 import UIKit
 
-//UICollectionViewDelegateFlowLayout
-//UICollectionViewFlowLayout
-//UICollectionView
+class WaterfallViewController: DemoBaseViewController {
 
-class ViewController: UIViewController {
+}
 
-    fileprivate lazy var collectionView: UICollectionView = {
+// MARK: - Lifecycle
+extension WaterfallViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+     
+        
         let layout = LXMWaterfallLayout()
         layout.columnCount = 3
         layout.minimumColumnSpacing = 30
@@ -25,48 +29,13 @@ class ViewController: UIViewController {
         layout.collectionViewHeaderHeight = 200
         layout.collectionViewFooterHeight = 300
         
-        let collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: layout)
-//        collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10)
-        collectionView.backgroundColor = UIColor.white
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        let nib = UINib(nibName: "TestCollectionViewCell", bundle: nil)
-        collectionView.register(nib, forCellWithReuseIdentifier: TestCollectionViewCellIdentifier)
+        self.collectionView.collectionViewLayout = layout
         
         let sectionNib = UINib(nibName: "TestSectionView", bundle: nil)
         collectionView.register(sectionNib, forSupplementaryViewOfKind: LXMCollectionElementKindSectionHeader , withReuseIdentifier: TestSectionViewIdentifier)
         collectionView.register(sectionNib, forSupplementaryViewOfKind: LXMCollectionElementKindSectionFooter, withReuseIdentifier: TestSectionViewIdentifier)
         collectionView.register(sectionNib, forSupplementaryViewOfKind: LXMCollectionElementKindCollectionViewHeader , withReuseIdentifier: TestSectionViewIdentifier)
         collectionView.register(sectionNib, forSupplementaryViewOfKind: LXMCollectionElementKindCollectionViewFooter, withReuseIdentifier: TestSectionViewIdentifier)
-        
-        return collectionView
-    }()
-
-    
-    fileprivate var dataArray: [String] = {
-        var dataArray = [String]()
-        for i in 0 ..< 20 {
-            dataArray.append("\(i)")
-        }
-        return dataArray
-    }()
-    
-    fileprivate var sizeArray: [CGSize] = {
-        var sizeArray = [CGSize]()
-        for i in 0 ..< 20 {
-            sizeArray.append(CGSize(width: 100, height: 100 + i % 5 * 10))
-        }
-        return sizeArray
-    }()
-}
-
-// MARK: - Lifecycle
-extension ViewController {
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.addSubview(collectionView)
-        
         
         
     }
@@ -78,29 +47,9 @@ extension ViewController {
 }
 
 
-// MARK: - UICollectionViewDataSource
-extension ViewController: UICollectionViewDataSource {
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 2 {
-            return 5
-        } else if section == 1 {
-            return 10
-        } else {
-            return dataArray.count
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TestCollectionViewCellIdentifier, for: indexPath) as! TestCollectionViewCell
-        cell.nameLabel.text = "(\(indexPath.section),\(dataArray[indexPath.item]))"
-        cell.backgroundColor = UIColor.orange
-        return cell
-    }
+
+// MARK: - override
+extension WaterfallViewController {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == LXMCollectionElementKindSectionHeader {
@@ -131,19 +80,7 @@ extension ViewController: UICollectionViewDataSource {
 }
 
 
-// MARK: - UICollectionViewDelegate
-extension ViewController: UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.section == 0 && indexPath.item == 0 {
-            self.collectionView.reloadData()
-        }
-        
-        print("didSelectItemAt \(indexPath)")
-    }
-}
-
-extension ViewController: LXMWaterfallLayoutDelegate {
+extension WaterfallViewController: LXMWaterfallLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: LXMWaterfallLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return sizeArray[indexPath.item]
     }
@@ -209,7 +146,4 @@ extension ViewController: LXMWaterfallLayoutDelegate {
             return UIEdgeInsets(top: 30, left: 30, bottom: 30, right: 30)
         }
     }
-    
-    
 }
-
