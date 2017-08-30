@@ -16,7 +16,7 @@ public let LXMCollectionElementKindFooter: String = "LXMCollectionElementKindFoo
 
 
 /// 此协议声明成只有类可以遵守，因为本来就是给UICollectionViewLayout用的
-/// 因为里面有修改self属性的方法，如果结构体等值类型也可以遵守该协议的话，会复杂很多
+/// 里面有修改self属性的方法，如果结构体等值类型也可以遵守该协议的话，会复杂很多
 /// 具体原因见：https://www.bignerdranch.com/blog/protocol-oriented-problems-and-the-immutable-self-error/
 protocol LXMLayoutHeaderFooterProtocol: class {
     
@@ -45,11 +45,6 @@ protocol LXMLayoutHeaderFooterProtocol: class {
     /// 可以通过赋值nil来重新生成默认值
     var allAttributesArray: [UICollectionViewLayoutAttributes]? { get set }
     
-    func updateAttributesForHeaderAndFooter(attributes: UICollectionViewLayoutAttributes?) -> UICollectionViewLayoutAttributes?
-    
-    func updateContentSizeForHeaderAndFooter(contentSize: CGSize) -> CGSize
-    
- 
 }
 
 

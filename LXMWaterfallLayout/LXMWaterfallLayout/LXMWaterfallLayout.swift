@@ -61,8 +61,8 @@ open class LXMWaterfallLayout: UICollectionViewLayout, LXMLayoutHeaderFooterProt
     /// 保存sectionFooter的attributes的字典，key是section
     fileprivate var sectionFooterAttributesDict: [Int : UICollectionViewLayoutAttributes]?
     
-    /// 所有item的attributes的数组，包括cell和SectionHeader，SectionFooter,collectionViewHeader,collectionViewFooter
-    /// 注意这里是声明了allAttributesArray而不是用LXMLayoutHeaderFooterProtocol协议里的默认值，主要是考虑到不遵从LXMLayoutHeaderFooterProtocol时也会用到这个属性
+    /// 所有item的attributes的数组，包括cell和SectionHeader，SectionFooter, collectionViewHeader, collectionViewFooter
+    /// 注意这里是声明了新的属性而不是用LXMLayoutHeaderFooterProtocol协议里的默认属性，主要是考虑到不遵从LXMLayoutHeaderFooterProtocol时也会用到这个属性
     fileprivate var allItemAttributesArray = [UICollectionViewLayoutAttributes]()
     
 }
