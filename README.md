@@ -1,7 +1,8 @@
 # LXMWaterfallLayout
 A collectionViewLayout layout cells like waterfall, which add the missing collectionViewHeader and collectionViewFooter.
 
-LXMWaterfallLayout is inspired by [CHTCollectionViewWaterfallLayout](https://github.com/chiahsien/CHTCollectionViewWaterfallLayout), and made several improvements to make it easier to use. It is subclass of UICollectionViewLayout and it's usage is just like UICollectionViewFlowLayout.
+LXMWaterfallLayout is inspired by [CHTCollectionViewWaterfallLayout](https://github.com/chiahsien/CHTCollectionViewWaterfallLayout), and made several improvements to make it easier to use. It is subclass of UICollectionViewLayout and it's usage is just like UICollectionViewFlowLayout.    
+
 ![screenshot](https://github.com/Phelthas/LXMWaterfallLayout/blob/master/ScreenShots/LXMWaterfallLayout.gif)
 
 [这里](http://www.jianshu.com/p/82daa5db4a74)有一篇总结
@@ -12,8 +13,14 @@ Xcode8.0 +
 ## Install
 1, CocoaPods    
    add `pod 'LXMWaterfallLayout'` to your podfile and run `pod install`    
-2, mannul    
+2, Manul    
    drag `LXMWaterfallLayout.swift` into your project 
+
+
+## Updates
+0.0.2  Add `LXMLayoutHeaderFooterProtocol` and `LXMHeaderFooterFlowLayout`    
+Now both `LXMHeaderFooterFlowLayout` and `LXMWaterfallLayout` confirm to `LXMLayoutHeaderFooterProtocol` so the architecture is more clear, what's more, if you have your own collectionViewLayout and you want it to have a header or footer too, you can complete it in minutes by adopting `LXMLayoutHeaderFooterProtocol`
+      
 
 ## How to use
 It is just like UICollectionViewFlowLayout, all you have to do is `LXMWaterfallLayout()` and assign it to a collectionView
