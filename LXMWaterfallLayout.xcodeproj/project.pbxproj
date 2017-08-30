@@ -20,8 +20,11 @@
 		439423741F51550F00E0A098 /* WaterfallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439423731F51550F00E0A098 /* WaterfallViewController.swift */; };
 		439423761F51573500E0A098 /* FlowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439423751F51573500E0A098 /* FlowViewController.swift */; };
 		439423781F51591C00E0A098 /* HeaderFooterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439423771F51591C00E0A098 /* HeaderFooterViewController.swift */; };
-		4394237A1F515E9F00E0A098 /* LXMHeaderFooterFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439423791F515E9F00E0A098 /* LXMHeaderFooterFlowLayout.swift */; };
-		4394237C1F516BAB00E0A098 /* LXMCollectionViewHeaderFooterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4394237B1F516BAB00E0A098 /* LXMCollectionViewHeaderFooterProtocol.swift */; };
+		4394237C1F516BAB00E0A098 /* LXMLayoutHeaderFooterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4394237B1F516BAB00E0A098 /* LXMLayoutHeaderFooterProtocol.swift */; };
+		4394237E1F5183B100E0A098 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4394237D1F5183B100E0A098 /* TestViewController.swift */; };
+		43D591FB1F53B7E700592CF9 /* TestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D591FA1F53B7E700592CF9 /* TestObject.m */; };
+		43D5BCD71F5508FB00AB4D9F /* TestArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D5BCD61F5508FB00AB4D9F /* TestArrayExtension.swift */; };
+		43D5BCD91F550AEB00AB4D9F /* LXMHeaderFooterFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D5BCD81F550AEB00AB4D9F /* LXMHeaderFooterFlowLayout.swift */; };
 		43E64B681F5010E500C6391C /* LXMWaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E64B671F5010E500C6391C /* LXMWaterfallLayout.swift */; };
 /* End PBXBuildFile section */
 
@@ -41,8 +44,13 @@
 		439423731F51550F00E0A098 /* WaterfallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaterfallViewController.swift; sourceTree = "<group>"; };
 		439423751F51573500E0A098 /* FlowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowViewController.swift; sourceTree = "<group>"; };
 		439423771F51591C00E0A098 /* HeaderFooterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderFooterViewController.swift; sourceTree = "<group>"; };
-		439423791F515E9F00E0A098 /* LXMHeaderFooterFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LXMHeaderFooterFlowLayout.swift; sourceTree = "<group>"; };
-		4394237B1F516BAB00E0A098 /* LXMCollectionViewHeaderFooterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LXMCollectionViewHeaderFooterProtocol.swift; sourceTree = "<group>"; };
+		4394237B1F516BAB00E0A098 /* LXMLayoutHeaderFooterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LXMLayoutHeaderFooterProtocol.swift; sourceTree = "<group>"; };
+		4394237D1F5183B100E0A098 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		43D591F81F53B7E700592CF9 /* LXMWaterfallLayout-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LXMWaterfallLayout-Bridging-Header.h"; sourceTree = "<group>"; };
+		43D591F91F53B7E700592CF9 /* TestObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestObject.h; sourceTree = "<group>"; };
+		43D591FA1F53B7E700592CF9 /* TestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestObject.m; sourceTree = "<group>"; };
+		43D5BCD61F5508FB00AB4D9F /* TestArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestArrayExtension.swift; sourceTree = "<group>"; };
+		43D5BCD81F550AEB00AB4D9F /* LXMHeaderFooterFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LXMHeaderFooterFlowLayout.swift; path = LXMWaterfallLayout/LXMHeaderFooterFlowLayout.swift; sourceTree = SOURCE_ROOT; };
 		43E64B671F5010E500C6391C /* LXMWaterfallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LXMWaterfallLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -78,6 +86,10 @@
 			children = (
 				438100C91F4D760700ABC6BA /* AppDelegate.swift */,
 				439423611F514EC900E0A098 /* DemoListViewController.swift */,
+				4394237D1F5183B100E0A098 /* TestViewController.swift */,
+				43D591F91F53B7E700592CF9 /* TestObject.h */,
+				43D591FA1F53B7E700592CF9 /* TestObject.m */,
+				43D5BCD61F5508FB00AB4D9F /* TestArrayExtension.swift */,
 				439423631F51542400E0A098 /* CommonView */,
 				439423681F51542400E0A098 /* DemoViewControllers */,
 				43E64B661F5010E500C6391C /* LXMWaterfallLayout */,
@@ -85,6 +97,7 @@
 				438100D01F4D760700ABC6BA /* Assets.xcassets */,
 				438100D21F4D760700ABC6BA /* LaunchScreen.storyboard */,
 				438100D51F4D760700ABC6BA /* Info.plist */,
+				43D591F81F53B7E700592CF9 /* LXMWaterfallLayout-Bridging-Header.h */,
 			);
 			path = LXMWaterfallLayout;
 			sourceTree = "<group>";
@@ -115,8 +128,8 @@
 			isa = PBXGroup;
 			children = (
 				43E64B671F5010E500C6391C /* LXMWaterfallLayout.swift */,
-				439423791F515E9F00E0A098 /* LXMHeaderFooterFlowLayout.swift */,
-				4394237B1F516BAB00E0A098 /* LXMCollectionViewHeaderFooterProtocol.swift */,
+				4394237B1F516BAB00E0A098 /* LXMLayoutHeaderFooterProtocol.swift */,
+				43D5BCD81F550AEB00AB4D9F /* LXMHeaderFooterFlowLayout.swift */,
 			);
 			path = LXMWaterfallLayout;
 			sourceTree = "<group>";
@@ -154,6 +167,7 @@
 					438100C51F4D760700ABC6BA = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 993SNGFP2R;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -197,15 +211,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				438100CA1F4D760700ABC6BA /* AppDelegate.swift in Sources */,
-				4394237A1F515E9F00E0A098 /* LXMHeaderFooterFlowLayout.swift in Sources */,
 				4394236B1F51542400E0A098 /* TestCollectionViewCell.swift in Sources */,
+				43D591FB1F53B7E700592CF9 /* TestObject.m in Sources */,
 				439423781F51591C00E0A098 /* HeaderFooterViewController.swift in Sources */,
-				4394237C1F516BAB00E0A098 /* LXMCollectionViewHeaderFooterProtocol.swift in Sources */,
+				4394237C1F516BAB00E0A098 /* LXMLayoutHeaderFooterProtocol.swift in Sources */,
 				439423761F51573500E0A098 /* FlowViewController.swift in Sources */,
 				4394236D1F51542400E0A098 /* TestSectionView.swift in Sources */,
 				439423741F51550F00E0A098 /* WaterfallViewController.swift in Sources */,
+				43D5BCD71F5508FB00AB4D9F /* TestArrayExtension.swift in Sources */,
 				43E64B681F5010E500C6391C /* LXMWaterfallLayout.swift in Sources */,
+				43D5BCD91F550AEB00AB4D9F /* LXMHeaderFooterFlowLayout.swift in Sources */,
 				439423721F51547C00E0A098 /* DemoBaseViewController.swift in Sources */,
+				4394237E1F5183B100E0A098 /* TestViewController.swift in Sources */,
 				439423621F514EC900E0A098 /* DemoListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -329,11 +346,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 993SNGFP2R;
 				INFOPLIST_FILE = LXMWaterfallLayout/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ouj.LXMWaterfallLayout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LXMWaterfallLayout/LXMWaterfallLayout-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -342,11 +362,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 993SNGFP2R;
 				INFOPLIST_FILE = LXMWaterfallLayout/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ouj.LXMWaterfallLayout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LXMWaterfallLayout/LXMWaterfallLayout-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

@@ -22,7 +22,9 @@ class DemoListViewController: UIViewController {
     
     fileprivate var dataArray: [String] = ["LXMWaterfallLayout",
                                            "LXMHeaderFooterFlowLayout",
-                                           "UICollectionViewFlowLayout"]
+                                           "UICollectionViewFlowLayout",
+                                           
+                                           "Test"]
 
 }
 
@@ -63,13 +65,16 @@ extension DemoListViewController: UITableViewDataSource {
 extension DemoListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         var viewController = DemoBaseViewController()
         if indexPath.row == 0 {
             viewController = WaterfallViewController()
         } else if indexPath.row == 1 {
             viewController = HeaderFooterViewController()
-        } else {
+        } else if indexPath.row == 2 {
             viewController = FlowViewController()
+        } else {
+            viewController = TestViewController()
         }
         
         self.navigationController?.pushViewController(viewController, animated: true)
