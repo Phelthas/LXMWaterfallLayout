@@ -18,13 +18,8 @@ extension TestViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let layout = collectionView.collectionViewLayout 
+//        let layout = collectionView.collectionViewLayout 
         
-        
-        
-//        UIMenuController
-//
-//        var key = UnsafeMutablePointer<Any>.allocate(capacity: 1)
 
     }
     

@@ -8,16 +8,6 @@
 
 import UIKit
 
-
-public let LXMCollectionElementKindSectionHeader: String = "LXMCollectionElementKindSectionHeader"
-
-public let LXMCollectionElementKindSectionFooter: String = "LXMCollectionElementKindSectionFooter"
-
-public let LXMCollectionElementKindCollectionViewHeader: String = "LXMCollectionElementKindCollectionViewHeader"
-
-public let LXMCollectionElementKindCollectionViewFooter: String = "LXMCollectionElementKindCollectionViewFooter"
-
-
 @objc public protocol LXMWaterfallLayoutDelegate: UICollectionViewDelegate {
     
     /// 请求delegate每个item的大小，如果没有实现该方法，那itemSize将是计算出来的边长为columnWidth的正方形
@@ -38,7 +28,7 @@ public let LXMCollectionElementKindCollectionViewFooter: String = "LXMCollection
     
 }
 
-open class LXMWaterfallLayout: UICollectionViewLayout {
+open class LXMWaterfallLayout: UICollectionViewLayout, LXMLayoutHeaderFooterProtocol {
     
     open var columnCount: Int = 2
     
@@ -51,11 +41,6 @@ open class LXMWaterfallLayout: UICollectionViewLayout {
     open var sectionFooterHeight: CGFloat = 0
     
     open var sectionInset: UIEdgeInsets = UIEdgeInsets.zero
-    
-    open var collectionViewHeaderHeight: CGFloat = 0
-    
-    open var collectionViewFooterHeight: CGFloat = 0
-    
     
     fileprivate weak var delegate: LXMWaterfallLayoutDelegate? {
         return self.collectionView?.delegate as? LXMWaterfallLayoutDelegate
@@ -76,12 +61,9 @@ open class LXMWaterfallLayout: UICollectionViewLayout {
     /// 保存sectionFooter的attributes的字典，key是section
     fileprivate var sectionFooterAttributesDict: [Int : UICollectionViewLayoutAttributes]?
     
-    fileprivate var collectionViewHeaderAttributes: UICollectionViewLayoutAttributes?
-    
-    fileprivate var collectionViewFooterAttributes: UICollectionViewLayoutAttributes?
-    
     /// 所有item的attributes的数组，包括cell和SectionHeader，SectionFooter,collectionViewHeader,collectionViewFooter
-    fileprivate var allAttributesArray = [UICollectionViewLayoutAttributes]()
+    /// 注意这里是声明了allAttributesArray而不是用LXMLayoutHeaderFooterProtocol协议里的默认值，主要是考虑到不遵从LXMLayoutHeaderFooterProtocol时也会用到这个属性
+    fileprivate var allItemAttributesArray = [UICollectionViewLayoutAttributes]()
     
 }
 
@@ -104,7 +86,7 @@ extension LXMWaterfallLayout {
         self.sectionFooterAttributesDict = nil
         self.collectionViewHeaderAttributes = nil
         self.collectionViewFooterAttributes = nil
-        self.allAttributesArray.removeAll()
+        self.allItemAttributesArray.removeAll()
         
         for section in 0 ..< numberOfSections {
             
@@ -141,16 +123,7 @@ extension LXMWaterfallLayout {
             
         }
         
-        //collectionViewHeader
-        assert(self.collectionViewHeaderHeight >= 0, "collectionViewHeaderHeight must be equal or greater than 0 !!!")
-        if self.collectionViewHeaderHeight > 0 {
-            let attributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: LXMCollectionElementKindCollectionViewHeader, with: IndexPath())
-            attributes.frame = CGRect(x: 0, y: 0, width: collectionViewWidth, height: self.collectionViewHeaderHeight)
-            contentHeight = attributes.frame.maxY
-            self.collectionViewHeaderAttributes = attributes
-            self.allAttributesArray.append(attributes)
-        }
-        
+        contentHeight = self.collectionViewHeaderHeight
         
         for section in 0 ..< numberOfSections {
             
@@ -161,11 +134,11 @@ extension LXMWaterfallLayout {
             //sectionHeader
             let sectionHeaderHeight = self.sectionHeaderHeight(atSection: section)
             if sectionHeaderHeight > 0 {
-                let attributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: LXMCollectionElementKindSectionHeader, with: IndexPath(item: 0, section: section))
+                let attributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, with: IndexPath(item: 0, section: section))
                 attributes.frame = CGRect(x: 0, y: contentHeight, width: collectionViewWidth, height: sectionHeaderHeight)
                 self.sectionHeaderAttributesDict?[section] = attributes
                 contentHeight = attributes.frame.maxY
-                self.allAttributesArray.append(attributes)
+                self.allItemAttributesArray.append(attributes)
             }
             
             let itemCount = collectionView.numberOfItems(inSection: section)
@@ -190,7 +163,7 @@ extension LXMWaterfallLayout {
                 attributes.frame = CGRect(x: offsetX, y: offsetY, width: size.width, height: size.height)
                 self.columnHeights[section][columnIndex] = attributes.frame.maxY - contentHeight
                 self.sectionItemAttributes[indexPath.section][indexPath.item] = attributes
-                self.allAttributesArray.append(attributes)
+                self.allItemAttributesArray.append(attributes)
             }
             
             if let maxColumnHeight = self.columnHeights[section].max() {
@@ -202,32 +175,23 @@ extension LXMWaterfallLayout {
             //sectionFooter
             let sectionFooterHeight = self.sectionFooterHeight(atSection: section)
             if sectionFooterHeight > 0 {
-                let attributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: LXMCollectionElementKindSectionFooter, with: IndexPath(item: 0, section: section))
+                let attributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, with: IndexPath(item: 0, section: section))
                 attributes.frame = CGRect(x: 0, y: contentHeight, width: collectionViewWidth, height: sectionFooterHeight)
                 self.sectionFooterAttributesDict?[section] = attributes
                 contentHeight = attributes.frame.maxY
-                self.allAttributesArray.append(attributes)
+                self.allItemAttributesArray.append(attributes)
             }
             
         }
-        
-        //collectionViewFooter
-        assert(self.collectionViewFooterHeight >= 0, "collectionViewFooterHeight must be equal or greater than 0 !!!")
-        if self.collectionViewFooterHeight > 0 {
-            let attributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: LXMCollectionElementKindCollectionViewFooter, with: IndexPath())
-            attributes.frame = CGRect(x: 0, y: contentHeight, width: collectionViewWidth, height: self.collectionViewFooterHeight)
-            contentHeight = attributes.frame.maxY
-            self.collectionViewFooterAttributes = attributes
-            self.allAttributesArray.append(attributes)
-        }
-        
-
+        contentHeight += self.collectionViewFooterHeight
+        self.allItemAttributesArray.append(self.collectionViewHeaderAttributes)
+        self.allItemAttributesArray.append(self.collectionViewFooterAttributes)
     }
     
     
     open override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         
-        let resultArray = self.allAttributesArray.filter { (tempAttributes) -> Bool in
+        let resultArray = self.allItemAttributesArray.filter { (tempAttributes) -> Bool in
             return tempAttributes.frame.intersects(rect)
         }
         return resultArray
@@ -247,13 +211,13 @@ extension LXMWaterfallLayout {
     
     
     open override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        if elementKind == LXMCollectionElementKindSectionHeader {
+        if elementKind == UICollectionElementKindSectionHeader {
             return self.sectionHeaderAttributesDict?[indexPath.section]
-        } else if elementKind == LXMCollectionElementKindSectionFooter {
+        } else if elementKind == UICollectionElementKindSectionFooter {
             return self.sectionFooterAttributesDict?[indexPath.section]
-        } else if elementKind == LXMCollectionElementKindCollectionViewHeader {
+        } else if elementKind == LXMCollectionElementKindHeader {
             return self.collectionViewHeaderAttributes
-        } else if elementKind == LXMCollectionElementKindCollectionViewFooter {
+        } else if elementKind == LXMCollectionElementKindFooter {
             return self.collectionViewFooterAttributes
         } else {
             return nil

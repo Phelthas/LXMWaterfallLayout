@@ -32,10 +32,10 @@ extension WaterfallViewController {
         self.collectionView.collectionViewLayout = layout
         
         let sectionNib = UINib(nibName: "TestSectionView", bundle: nil)
-        collectionView.register(sectionNib, forSupplementaryViewOfKind: LXMCollectionElementKindSectionHeader , withReuseIdentifier: TestSectionViewIdentifier)
-        collectionView.register(sectionNib, forSupplementaryViewOfKind: LXMCollectionElementKindSectionFooter, withReuseIdentifier: TestSectionViewIdentifier)
-        collectionView.register(sectionNib, forSupplementaryViewOfKind: LXMCollectionElementKindCollectionViewHeader , withReuseIdentifier: TestSectionViewIdentifier)
-        collectionView.register(sectionNib, forSupplementaryViewOfKind: LXMCollectionElementKindCollectionViewFooter, withReuseIdentifier: TestSectionViewIdentifier)
+        collectionView.register(sectionNib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader , withReuseIdentifier: TestSectionViewIdentifier)
+        collectionView.register(sectionNib, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: TestSectionViewIdentifier)
+        collectionView.register(sectionNib, forSupplementaryViewOfKind: LXMCollectionElementKindHeader , withReuseIdentifier: TestSectionViewIdentifier)
+        collectionView.register(sectionNib, forSupplementaryViewOfKind: LXMCollectionElementKindFooter, withReuseIdentifier: TestSectionViewIdentifier)
         
         
     }
@@ -52,23 +52,23 @@ extension WaterfallViewController {
 extension WaterfallViewController {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == LXMCollectionElementKindSectionHeader {
+        if kind == UICollectionElementKindSectionHeader {
             let sectionView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TestSectionViewIdentifier, for: indexPath) as! TestSectionView
             sectionView.backgroundColor = UIColor.red
             sectionView.nameLabel.text = "sectionHeader \(indexPath.section)"
             return sectionView
             
-        } else if kind == LXMCollectionElementKindSectionFooter {
+        } else if kind == UICollectionElementKindSectionFooter {
             let sectionView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TestSectionViewIdentifier, for: indexPath) as! TestSectionView
             sectionView.backgroundColor = UIColor.blue
             sectionView.nameLabel.text = "sectionFooter \(indexPath.section)"
             return sectionView
-        } else if kind == LXMCollectionElementKindCollectionViewHeader {
+        } else if kind == LXMCollectionElementKindHeader {
             let sectionView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TestSectionViewIdentifier, for: indexPath) as! TestSectionView
             sectionView.backgroundColor = UIColor.yellow
             sectionView.nameLabel.text = "collectionViewHeader"
             return sectionView
-        } else if kind == LXMCollectionElementKindCollectionViewFooter {
+        } else if kind == LXMCollectionElementKindFooter {
             let sectionView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TestSectionViewIdentifier, for: indexPath) as! TestSectionView
             sectionView.backgroundColor = UIColor.green
             sectionView.nameLabel.text = "collectionViewFooter"

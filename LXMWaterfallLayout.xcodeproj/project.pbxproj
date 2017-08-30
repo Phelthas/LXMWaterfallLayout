@@ -127,9 +127,9 @@
 		43E64B661F5010E500C6391C /* LXMWaterfallLayout */ = {
 			isa = PBXGroup;
 			children = (
-				43E64B671F5010E500C6391C /* LXMWaterfallLayout.swift */,
 				4394237B1F516BAB00E0A098 /* LXMLayoutHeaderFooterProtocol.swift */,
 				43D5BCD81F550AEB00AB4D9F /* LXMHeaderFooterFlowLayout.swift */,
+				43E64B671F5010E500C6391C /* LXMWaterfallLayout.swift */,
 			);
 			path = LXMWaterfallLayout;
 			sourceTree = "<group>";
