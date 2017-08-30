@@ -23,7 +23,6 @@
 		4394237C1F516BAB00E0A098 /* LXMLayoutHeaderFooterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4394237B1F516BAB00E0A098 /* LXMLayoutHeaderFooterProtocol.swift */; };
 		4394237E1F5183B100E0A098 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4394237D1F5183B100E0A098 /* TestViewController.swift */; };
 		43D591FB1F53B7E700592CF9 /* TestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D591FA1F53B7E700592CF9 /* TestObject.m */; };
-		43D5BCD71F5508FB00AB4D9F /* TestArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D5BCD61F5508FB00AB4D9F /* TestArrayExtension.swift */; };
 		43D5BCD91F550AEB00AB4D9F /* LXMHeaderFooterFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D5BCD81F550AEB00AB4D9F /* LXMHeaderFooterFlowLayout.swift */; };
 		43E64B681F5010E500C6391C /* LXMWaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E64B671F5010E500C6391C /* LXMWaterfallLayout.swift */; };
 /* End PBXBuildFile section */
@@ -49,7 +48,6 @@
 		43D591F81F53B7E700592CF9 /* LXMWaterfallLayout-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LXMWaterfallLayout-Bridging-Header.h"; sourceTree = "<group>"; };
 		43D591F91F53B7E700592CF9 /* TestObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestObject.h; sourceTree = "<group>"; };
 		43D591FA1F53B7E700592CF9 /* TestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestObject.m; sourceTree = "<group>"; };
-		43D5BCD61F5508FB00AB4D9F /* TestArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestArrayExtension.swift; sourceTree = "<group>"; };
 		43D5BCD81F550AEB00AB4D9F /* LXMHeaderFooterFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LXMHeaderFooterFlowLayout.swift; path = LXMWaterfallLayout/LXMHeaderFooterFlowLayout.swift; sourceTree = SOURCE_ROOT; };
 		43E64B671F5010E500C6391C /* LXMWaterfallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LXMWaterfallLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -89,7 +87,6 @@
 				4394237D1F5183B100E0A098 /* TestViewController.swift */,
 				43D591F91F53B7E700592CF9 /* TestObject.h */,
 				43D591FA1F53B7E700592CF9 /* TestObject.m */,
-				43D5BCD61F5508FB00AB4D9F /* TestArrayExtension.swift */,
 				439423631F51542400E0A098 /* CommonView */,
 				439423681F51542400E0A098 /* DemoViewControllers */,
 				43E64B661F5010E500C6391C /* LXMWaterfallLayout */,
@@ -218,7 +215,6 @@
 				439423761F51573500E0A098 /* FlowViewController.swift in Sources */,
 				4394236D1F51542400E0A098 /* TestSectionView.swift in Sources */,
 				439423741F51550F00E0A098 /* WaterfallViewController.swift in Sources */,
-				43D5BCD71F5508FB00AB4D9F /* TestArrayExtension.swift in Sources */,
 				43E64B681F5010E500C6391C /* LXMWaterfallLayout.swift in Sources */,
 				43D5BCD91F550AEB00AB4D9F /* LXMHeaderFooterFlowLayout.swift in Sources */,
 				439423721F51547C00E0A098 /* DemoBaseViewController.swift in Sources */,
