@@ -27,6 +27,8 @@ extension FlowViewController {
         let sectionNib = UINib(nibName: "TestSectionView", bundle: nil)
         collectionView.register(sectionNib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader , withReuseIdentifier: TestSectionViewIdentifier)
         collectionView.register(sectionNib, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: TestSectionViewIdentifier)
+        
+        collectionView.contentInset = UIEdgeInsets(top: 10, left: 20, bottom: 30, right: 40)
     }
     
     override func didReceiveMemoryWarning() {
@@ -86,7 +88,7 @@ extension FlowViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section == 0 {
-            return CGSize(width: 100, height: 0)
+            return CGSize(width: 100, height: 50)
         } else if section == 1 {
             return CGSize(width: 100, height: 100)
         } else {
@@ -97,7 +99,7 @@ extension FlowViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         if section == 0 {
-            return CGSize(width: 100, height: 0)
+            return CGSize(width: 100, height: 30)
         } else if section == 1 {
             return CGSize(width: 100, height: 50)
         } else {

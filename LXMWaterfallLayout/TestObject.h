@@ -11,3 +11,15 @@
 @interface TestObject : NSObject
 
 @end
+
+
+@interface TestObject (Test)
+
+@end
+
+
+
+
+@interface OneObject : TestObject
+
+@end

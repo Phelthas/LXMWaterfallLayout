@@ -24,7 +24,6 @@ protocol LXMLayoutHeaderFooterProtocol: class {
     
     var collectionViewFooterHeight: CGFloat { get set }
     
-    
     /// 如果collectionViewHeaderHeight > 0 则有默认值，否则为nil
     /// 可以通过赋值nil来重新生成默认值
     var collectionViewHeaderAttributes: UICollectionViewLayoutAttributes? { get set }
@@ -32,7 +31,6 @@ protocol LXMLayoutHeaderFooterProtocol: class {
     /// 如果collectionViewFooterHeight > 0 则有默认值，否则为nil
     /// 可以通过赋值nil来重新生成默认值
     var collectionViewFooterAttributes: UICollectionViewLayoutAttributes? { get set }
-    
     
     /// 遍历所有section用
     /// ```
@@ -44,7 +42,6 @@ protocol LXMLayoutHeaderFooterProtocol: class {
     /// 所以如果要遵从本协议的话，以上三个方法必须要实现
     /// 可以通过赋值nil来重新生成默认值
     var allAttributesArray: [UICollectionViewLayoutAttributes]? { get set }
-    
 }
 
 
@@ -93,9 +90,12 @@ extension LXMLayoutHeaderFooterProtocol where Self: UICollectionViewLayout {
             if let attributes = objc_getAssociatedObject(self, &kLXMCollectionViewHeaderAttributesKey) as? UICollectionViewLayoutAttributes {
                 return attributes
             } else {
-                if let collectionView = self.collectionView, self.collectionViewHeaderHeight > 0 {
+                if self.collectionViewHeaderHeight > 0 {
                     let attributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: LXMCollectionElementKindHeader, with: IndexPath())
-                    attributes.frame = CGRect(x: 0, y: 0, width: collectionView.bounds.width, height: self.collectionViewHeaderHeight)
+                    attributes.frame = CGRect(x: 0,
+                                              y: 0,
+                                              width: self.collectionViewContentSize.width,
+                                              height: self.collectionViewHeaderHeight)
                     self.collectionViewHeaderAttributes = attributes
                     return attributes
                 }
@@ -112,9 +112,12 @@ extension LXMLayoutHeaderFooterProtocol where Self: UICollectionViewLayout {
             if let attributes = objc_getAssociatedObject(self, &kLXMCollectionViewFooterAttributesKey) as? UICollectionViewLayoutAttributes {
                 return attributes
             } else {
-                if let collectionView = self.collectionView, self.collectionViewFooterHeight > 0 {
+                if self.collectionViewFooterHeight > 0 {
                     let attributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: LXMCollectionElementKindFooter, with: IndexPath())
-                    attributes.frame = CGRect(x: 0, y: self.collectionViewContentSize.height - self.collectionViewFooterHeight, width: collectionView.bounds.width, height: self.collectionViewFooterHeight)
+                    attributes.frame = CGRect(x: 0,
+                                              y: self.collectionViewContentSize.height - self.collectionViewFooterHeight,
+                                              width: self.collectionViewContentSize.width,
+                                              height: self.collectionViewFooterHeight)
                     self.collectionViewFooterAttributes = attributes
                     return attributes
                 }
@@ -183,10 +186,7 @@ extension LXMLayoutHeaderFooterProtocol where Self: UICollectionViewLayout {
 
 
 
-
-
-
-// MARK: - Array Tool
+// MARK: - Tool
 extension Array {
     public mutating func append(_ newElement: Element?) {
         if let newElement = newElement {

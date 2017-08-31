@@ -74,7 +74,7 @@ extension LXMWaterfallLayout {
     open override func prepare() {
         super.prepare()
         guard let collectionView = self.collectionView else { return }
-        let collectionViewWidth = collectionView.bounds.width
+        let collectionViewWidth = self.collectionViewContentSize.width
         let numberOfSections = collectionView.numberOfSections
         if numberOfSections <= 0 {
             return
@@ -227,8 +227,10 @@ extension LXMWaterfallLayout {
     
     
     open override var collectionViewContentSize: CGSize {
+        
+        /// 注意：contentSize是跟contentInset有关的，但是在计算Attributes的时候，不用计算contentInset，貌似系统已经计算过了
         if let collectionView = self.collectionView {
-            return CGSize(width: collectionView.bounds.width, height: self.contentHeight)
+            return CGSize(width: collectionView.bounds.width - collectionView.contentInset.left - collectionView.contentInset.right, height: self.contentHeight)
         }
         return CGSize.zero
     }
@@ -338,19 +340,14 @@ private extension LXMWaterfallLayout {
 public extension LXMWaterfallLayout {
     
     public func columnWidth(atSection section: Int) -> CGFloat {
-        if let collectionView = self.collectionView {
-            let count = self.columnCount(atSection: section)
-            let sectionInset = self.sectionInset(atSection: section)
-            let spacing = self.minimumColumnSpacing(atSection: section)
-            let width = collectionView.bounds.width - sectionInset.left - sectionInset.right
-            if count > 1 {
-                return floor((width - CGFloat(count - 1) * spacing) / CGFloat(count))
-            } else {
-                return width
-            }
-            
+        let count = self.columnCount(atSection: section)
+        let sectionInset = self.sectionInset(atSection: section)
+        let spacing = self.minimumColumnSpacing(atSection: section)
+        let width = self.collectionViewContentSize.width - sectionInset.left - sectionInset.right
+        if count > 1 {
+            return floor((width - CGFloat(count - 1) * spacing) / CGFloat(count))
         } else {
-            return 0
+            return width
         }
     }
     

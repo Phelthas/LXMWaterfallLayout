@@ -52,6 +52,7 @@ class LXMHeaderFooterFlowLayout: UICollectionViewFlowLayout, LXMLayoutHeaderFoot
     }
     
     
+    /// 注意：一定要用super.collectionViewContentSize返回的宽度，系统貌似根据contentInset做了优化计算
     open override var collectionViewContentSize: CGSize {
         return updateContentSizeForHeaderAndFooter(contentSize: super.collectionViewContentSize)
     }

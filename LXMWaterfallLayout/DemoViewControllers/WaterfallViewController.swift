@@ -37,7 +37,8 @@ extension WaterfallViewController {
         collectionView.register(sectionNib, forSupplementaryViewOfKind: LXMCollectionElementKindHeader , withReuseIdentifier: TestSectionViewIdentifier)
         collectionView.register(sectionNib, forSupplementaryViewOfKind: LXMCollectionElementKindFooter, withReuseIdentifier: TestSectionViewIdentifier)
         
-        
+        collectionView.contentInset = UIEdgeInsets(top: 10, left: 20, bottom: 30, right: 40)
+
     }
     
     override func didReceiveMemoryWarning() {

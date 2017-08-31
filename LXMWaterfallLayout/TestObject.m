@@ -15,3 +15,15 @@
 @end
 
 
+@implementation TestObject (Test)
+
+
+
+@end
+
+
+@implementation OneObject
+
+
+
+@end
