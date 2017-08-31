@@ -5,7 +5,7 @@ LXMWaterfallLayout is inspired by [CHTCollectionViewWaterfallLayout](https://git
 
 ![screenshot](https://github.com/Phelthas/LXMWaterfallLayout/blob/master/ScreenShots/LXMWaterfallLayout.gif)
 
-[这里](http://www.jianshu.com/p/82daa5db4a74)有一篇总结
+[传送门](http://www.jianshu.com/p/82daa5db4a74)和[传送门](http://www.jianshu.com/p/21f97112cc8e)是我写的总结
 ## Requirements
 Swift3.0    
 Xcode8.0 +    
