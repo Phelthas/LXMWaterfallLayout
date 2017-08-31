@@ -18,6 +18,7 @@ Xcode8.0 +
 
 
 ## Updates
+0.0.4  fix bugs with contentInset    
 0.0.3  Add `LXMLayoutHeaderFooterProtocol` and `LXMHeaderFooterFlowLayout`    
 Now both `LXMHeaderFooterFlowLayout` and `LXMWaterfallLayout` confirm to `LXMLayoutHeaderFooterProtocol` so the architecture is more clear, what's more, if you have your own collectionViewLayout and you want it to have a header or footer too, you can complete it in minutes by adopting `LXMLayoutHeaderFooterProtocol`
       
