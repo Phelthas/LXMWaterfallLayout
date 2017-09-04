@@ -10,6 +10,9 @@ import UIKit
 
 class HeaderFooterViewController: DemoBaseViewController {
 
+    deinit {
+        print("HeaderFooterViewController deinit")
+    }
 }
 
 // MARK: - Lifecycle
@@ -19,8 +22,8 @@ extension HeaderFooterViewController {
         super.viewDidLoad()
         
 //        let layout = UICollectionViewFlowLayout()
-        let layout = LXMHeaderFooterFlowLayout()
-        layout.minimumInteritemSpacing = 20
+        let layout = LXMAlignmentFlowLayout()
+        layout.minimumInteritemSpacing = 5
         layout.sectionInset = UIEdgeInsets(top: 10, left: 20, bottom: 30, right: 40)
         layout.collectionViewHeaderHeight = 200
         layout.collectionViewFooterHeight = 300

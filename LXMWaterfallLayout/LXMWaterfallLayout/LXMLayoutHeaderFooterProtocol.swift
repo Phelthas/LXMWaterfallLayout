@@ -182,6 +182,51 @@ extension LXMLayoutHeaderFooterProtocol where Self: UICollectionViewLayout {
     }
     
     
+    
+    
+}
+
+
+
+private var kLXMCollectionViewSectionItemAttributesDictKey = "kLXMCollectionViewSectionItemAttributesDictKey"
+private var kLXMCollectionViewSectionHeaderAttributesDictKey = "kLXMCollectionViewSectionHeaderAttributesDictKey"
+private var kLXMCollectionViewSectionFooterAttributesDictKey = "kLXMCollectionViewSectionFooterAttributesDictKey"
+
+extension UICollectionViewFlowLayout {
+    
+    /// 保存每个section中每个item的Attributes的字典，key是section
+    final var sectionItemAttributesDict: [Int : [UICollectionViewLayoutAttributes]]? {
+        set {
+            objc_setAssociatedObject(self, &kLXMCollectionViewSectionItemAttributesDictKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+        get {
+            return objc_getAssociatedObject(self, &kLXMCollectionViewSectionItemAttributesDictKey) as? [Int : [UICollectionViewLayoutAttributes]]
+        }
+    }
+    
+    
+    // 保存sectionHeader的attributes的字典，key是section
+    var sectionHeaderAttributesDict: [Int : UICollectionViewLayoutAttributes]? {
+        set {
+            objc_setAssociatedObject(self, &kLXMCollectionViewSectionHeaderAttributesDictKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+        get {
+            return objc_getAssociatedObject(self, &kLXMCollectionViewSectionHeaderAttributesDictKey) as? [Int : UICollectionViewLayoutAttributes]
+        }
+    }
+    
+    /// 保存sectionFooter的attributes的字典，key是section
+    var sectionFooterAttributesDict: [Int : UICollectionViewLayoutAttributes]? {
+        set {
+            objc_setAssociatedObject(self, &kLXMCollectionViewSectionFooterAttributesDictKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+        get {
+            return objc_getAssociatedObject(self, &kLXMCollectionViewSectionFooterAttributesDictKey) as? [Int : UICollectionViewLayoutAttributes]
+        }
+    }
+    
+    
+    
 }
 
 

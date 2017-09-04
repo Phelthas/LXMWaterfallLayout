@@ -21,7 +21,16 @@ extension TestViewController {
         
 //        let layout = collectionView.collectionViewLayout 
         
-       
+        
+        var dict: [Int : String] = [0 : "a",
+                                    1 : "b",
+                                    2 : "c"]
+        
+        dict[1] = nil
+        
+        var array: [String?] = ["a", "b", "c", nil]
+        
+        array.append(nil)
         
     }
     
