@@ -32,16 +32,6 @@ protocol LXMLayoutHeaderFooterProtocol: class {
     /// 可以通过赋值nil来重新生成默认值
     var collectionViewFooterAttributes: UICollectionViewLayoutAttributes? { get set }
     
-    /// 遍历所有section用
-    /// ```
-    /// self.layoutAttributesForItem(at: indexPath)
-    /// self.layoutAttributesForSupplementaryView(ofKind: UICollectionElementKindSectionHeader, at: indexPath)
-    /// self.layoutAttributesForSupplementaryView(ofKind: UICollectionElementKindSectionFooter, at: indexPath)
-    /// ```
-    /// 这三个方法获取所有的attributes属性，如果collectionViewHeaderAttributes或collectionViewFooterAttributes存在的话，再加上这两个，作为allAttributesArray的默认值
-    /// 所以如果要遵从本协议的话，以上三个方法必须要实现
-    /// 可以通过赋值nil来重新生成默认值
-    var allAttributesArray: [UICollectionViewLayoutAttributes]? { get set }
 }
 
 
@@ -50,7 +40,6 @@ private var kLXMCollectionViewHeaderHeightKey: String = "kLXMCollectionViewHeade
 private var kLXMCollectionViewFooterHeightKey: String = "kLXMCollectionViewFooterHeightKey"
 private var kLXMCollectionViewHeaderAttributesKey: String = "kLXMCollectionViewHeaderAttributesKey"
 private var kLXMCollectionViewFooterAttributesKey: String = "kLXMCollectionViewFooterAttributesKey"
-private var kLXMCollectionViewAllAttributesArrayKey: String = "kLXMCollectionViewAllAttributesArrayKey"
 
 extension LXMLayoutHeaderFooterProtocol where Self: UICollectionViewLayout {
     
@@ -126,45 +115,7 @@ extension LXMLayoutHeaderFooterProtocol where Self: UICollectionViewLayout {
         }
     }
     
-    var allAttributesArray: [UICollectionViewLayoutAttributes]? {
-        set {
-            objc_setAssociatedObject(self, &kLXMCollectionViewAllAttributesArrayKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-        get {
-            if let attributesArray = objc_getAssociatedObject(self, &kLXMCollectionViewAllAttributesArrayKey) as? [UICollectionViewLayoutAttributes] {
-                return attributesArray
-            } else {
-                if let collectionView = self.collectionView {
-                    let numberOfSections = collectionView.numberOfSections
-                    if numberOfSections <= 0 {
-                        return nil
-                    }
-                    var attributesArray = [UICollectionViewLayoutAttributes]()
-                    for section in 0 ..< numberOfSections {
-                        for index in 0 ..< collectionView.numberOfItems(inSection: section) {
-                            let indexPath = IndexPath(item: index, section: section)
-                            let itemAttributes = self.layoutAttributesForItem(at: indexPath)
-                            attributesArray.append(itemAttributes)
-                            
-                            let sectionHeaderAttributes = self.layoutAttributesForSupplementaryView(ofKind: UICollectionElementKindSectionHeader, at: indexPath)
-                            attributesArray.append(sectionHeaderAttributes)
-                            
-                            let sectionFooterAttributes = self.layoutAttributesForSupplementaryView(ofKind: UICollectionElementKindSectionFooter, at: indexPath)
-                            attributesArray.append(sectionFooterAttributes)
-                        }
-                    }
-                    attributesArray.append(self.collectionViewHeaderAttributes)
-                    attributesArray.append(self.collectionViewFooterAttributes)
-                    self.allAttributesArray = attributesArray
-                    return attributesArray
-                }
-                return nil
-            }
-        }
-    }
-    
-    
-    
+
     
     func updateAttributesForHeaderAndFooter(attributes: UICollectionViewLayoutAttributes?) -> UICollectionViewLayoutAttributes? {
         if let result = attributes?.copy() as? UICollectionViewLayoutAttributes {
@@ -252,4 +203,54 @@ extension Array {
     }
 }
 
+
+extension UICollectionViewFlowLayout {
+    
+    fileprivate var delegate: UICollectionViewDelegateFlowLayout? {
+        return self.collectionView?.delegate as? UICollectionViewDelegateFlowLayout
+    }
+    
+    func sizeForItem(atIndexPath indexPath: IndexPath) -> CGSize {
+        if let collectionView = self.collectionView {
+            return self.delegate?.collectionView?(collectionView, layout: self, sizeForItemAt: indexPath) ?? self.itemSize
+        }
+        return self.itemSize
+    }
+    
+    func insetForSection(at section: Int) -> UIEdgeInsets {
+        if let collectionView = self.collectionView {
+            return self.delegate?.collectionView?(collectionView, layout: self, insetForSectionAt: section) ?? self.sectionInset
+        }
+        return self.sectionInset
+    }
+    
+    func minimumLineSpacingForSection(at section: Int) -> CGFloat {
+        if let collectionView = self.collectionView {
+            return self.delegate?.collectionView?(collectionView, layout: self, minimumLineSpacingForSectionAt: section) ?? self.minimumLineSpacing
+        }
+        return self.minimumLineSpacing
+    }
+    
+    func minimumInteritemSpacingForSection(at section: Int) -> CGFloat {
+        if let collectionView = self.collectionView {
+            return self.delegate?.collectionView?(collectionView, layout: self, minimumInteritemSpacingForSectionAt: section) ?? self.minimumInteritemSpacing
+        }
+        return self.minimumInteritemSpacing
+    }
+    
+    func referenceSizeForHeaderInSection(section: Int) -> CGSize {
+        if let collectionView = self.collectionView {
+            return self.delegate?.collectionView?(collectionView, layout: self, referenceSizeForHeaderInSection: section) ?? self.headerReferenceSize
+        }
+        return self.headerReferenceSize
+    }
+    
+    func referenceSizeForFooterInSection(section: Int) -> CGSize {
+        if let collectionView = self.collectionView {
+            return self.delegate?.collectionView?(collectionView, layout: self, referenceSizeForFooterInSection: section) ?? self.footerReferenceSize
+        }
+        return self.footerReferenceSize
+    }
+    
+}
 

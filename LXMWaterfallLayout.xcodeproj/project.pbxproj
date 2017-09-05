@@ -25,7 +25,6 @@
 		43D591FB1F53B7E700592CF9 /* TestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D591FA1F53B7E700592CF9 /* TestObject.m */; };
 		43E64B681F5010E500C6391C /* LXMWaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E64B671F5010E500C6391C /* LXMWaterfallLayout.swift */; };
 		43E842A71F5699C5007AD5DB /* LXMHeaderFooterFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E842A61F5699C5007AD5DB /* LXMHeaderFooterFlowLayout.swift */; };
-		43EF83321F59005100488393 /* LXMAlignmentFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43EF83311F59005100488393 /* LXMAlignmentFlowLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,7 +50,6 @@
 		43D591FA1F53B7E700592CF9 /* TestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestObject.m; sourceTree = "<group>"; };
 		43E64B671F5010E500C6391C /* LXMWaterfallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LXMWaterfallLayout.swift; sourceTree = "<group>"; };
 		43E842A61F5699C5007AD5DB /* LXMHeaderFooterFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LXMHeaderFooterFlowLayout.swift; sourceTree = "<group>"; };
-		43EF83311F59005100488393 /* LXMAlignmentFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LXMAlignmentFlowLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,7 +127,6 @@
 				4394237B1F516BAB00E0A098 /* LXMLayoutHeaderFooterProtocol.swift */,
 				43E842A61F5699C5007AD5DB /* LXMHeaderFooterFlowLayout.swift */,
 				43E64B671F5010E500C6391C /* LXMWaterfallLayout.swift */,
-				43EF83311F59005100488393 /* LXMAlignmentFlowLayout.swift */,
 			);
 			path = LXMWaterfallLayout;
 			sourceTree = "<group>";
@@ -217,7 +214,6 @@
 				4394237C1F516BAB00E0A098 /* LXMLayoutHeaderFooterProtocol.swift in Sources */,
 				439423761F51573500E0A098 /* FlowViewController.swift in Sources */,
 				4394236D1F51542400E0A098 /* TestSectionView.swift in Sources */,
-				43EF83321F59005100488393 /* LXMAlignmentFlowLayout.swift in Sources */,
 				439423741F51550F00E0A098 /* WaterfallViewController.swift in Sources */,
 				43E64B681F5010E500C6391C /* LXMWaterfallLayout.swift in Sources */,
 				439423721F51547C00E0A098 /* DemoBaseViewController.swift in Sources */,

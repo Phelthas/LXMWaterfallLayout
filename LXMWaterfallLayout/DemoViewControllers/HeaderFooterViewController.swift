@@ -22,9 +22,9 @@ extension HeaderFooterViewController {
         super.viewDidLoad()
         
 //        let layout = UICollectionViewFlowLayout()
-        let layout = LXMAlignmentFlowLayout()
+        let layout = LXMHeaderFooterFlowLayout()
         layout.minimumInteritemSpacing = 5
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 20, bottom: 30, right: 40)
+//        layout.sectionInset = UIEdgeInsets(top: 10, left: 20, bottom: 30, right: 40)
         layout.collectionViewHeaderHeight = 200
         layout.collectionViewFooterHeight = 300
         
