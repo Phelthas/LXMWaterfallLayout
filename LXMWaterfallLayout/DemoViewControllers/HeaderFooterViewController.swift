@@ -9,7 +9,7 @@
 import UIKit
 
 class HeaderFooterViewController: DemoBaseViewController {
-
+    var scrollDirection: UICollectionViewScrollDirection = .vertical
 }
 
 // MARK: - Lifecycle
@@ -25,7 +25,7 @@ extension HeaderFooterViewController {
         layout.sectionInset = UIEdgeInsets(top: 10, left: 20, bottom: 30, right: 40)
         layout.collectionViewHeaderHeight = 200
         layout.collectionViewFooterHeight = 300
-        layout.scrollDirection = .horizontal
+        layout.scrollDirection = self.scrollDirection
         
         self.collectionView.collectionViewLayout = layout
         
@@ -35,8 +35,46 @@ extension HeaderFooterViewController {
         collectionView.register(sectionNib, forSupplementaryViewOfKind: LXMCollectionElementKindHeader , withReuseIdentifier: TestSectionViewIdentifier)
         collectionView.register(sectionNib, forSupplementaryViewOfKind: LXMCollectionElementKindFooter, withReuseIdentifier: TestSectionViewIdentifier)
 
-        collectionView.contentInset = UIEdgeInsets(top: 10, left: 20, bottom: 30, right: 40)
-
+//        collectionView.contentInset = UIEdgeInsets(top: 10, left: 20, bottom: 30, right: 40)
+        
+        
+        
+        let item = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(changeAlignment))
+        self.navigationItem.rightBarButtonItem = item
+    }
+    
+    @objc func changeAlignment() {
+        if let layout = self.collectionView.collectionViewLayout as? LXMHeaderFooterFlowLayout {
+            
+            if self.scrollDirection == .vertical {
+                if layout.horiziontalAlignment == .left {
+                    layout.horiziontalAlignment = .right
+                } else if layout.horiziontalAlignment == .right {
+                    layout.horiziontalAlignment = .center
+                } else if layout.horiziontalAlignment == .center {
+                    layout.horiziontalAlignment = .justified
+                } else if layout.horiziontalAlignment == .justified {
+                    layout.horiziontalAlignment = .none
+                } else if layout.horiziontalAlignment == .none {
+                    layout.horiziontalAlignment = .left
+                }
+                
+            } else {
+                if layout.verticalAlignment == .top {
+                    layout.verticalAlignment = .bottom
+                } else if layout.verticalAlignment == .bottom {
+                    layout.verticalAlignment = .center
+                } else if layout.verticalAlignment == .center {
+                    layout.verticalAlignment = .justified
+                } else if layout.verticalAlignment == .justified {
+                    layout.verticalAlignment = .none
+                } else if layout.verticalAlignment == .none {
+                    layout.verticalAlignment = .top
+                }
+            }
+            self.collectionView.reloadData()
+            
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -76,9 +114,9 @@ extension HeaderFooterViewController {
 
 extension HeaderFooterViewController: UICollectionViewDelegateFlowLayout {
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return sizeArray[indexPath.item]
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return sizeArray[indexPath.item]
+//    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section == 0 {

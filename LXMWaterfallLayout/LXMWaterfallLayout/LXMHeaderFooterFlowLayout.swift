@@ -232,7 +232,7 @@ private extension LXMHeaderFooterFlowLayout {
                         let itemSpacing = minimumInteritemSpacingForSection(at: currentItem.indexPath.section)
                         let sapcing = (self.collectionViewContentSize.width - inset.left - inset.right - totalItemWidth - (itemSpacing * CGFloat(lineArray.count - 1))) / 2
                         
-                        currentItem.frame.origin.x = sapcing
+                        currentItem.frame.origin.x = inset.left + sapcing
                         resultArray.append(currentItem)
                         for i in 1 ..< lineArray.count {
                             let attributes = lineArray[i]
@@ -322,7 +322,7 @@ private extension LXMHeaderFooterFlowLayout {
                         let lineSpacing = minimumLineSpacingForSection(at: currentItem.indexPath.section)
                         let sapcing = (self.collectionViewContentSize.height - inset.top - inset.bottom - totalItemHeight - (lineSpacing * CGFloat(lineArray.count - 1))) / 2
                         
-                        currentItem.frame.origin.y = sapcing
+                        currentItem.frame.origin.y = inset.top + sapcing
                         resultArray.append(currentItem)
                         for i in 1 ..< lineArray.count {
                             let attributes = lineArray[i]
