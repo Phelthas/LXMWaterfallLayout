@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "LXMWaterfallLayout"
-  s.version      = "0.0.4"
+  s.version      = "1.0.0"
   s.summary      = "A collectionViewLayout layout cells like waterfall, which add the missing collectionViewHeader and collectionViewFooter"
   s.description  = <<-DESC
 A collectionViewLayout layout cells like waterfall, which add the missing collectionViewHeader and collectionViewFooter.
@@ -11,7 +11,7 @@ DESC
   s.license      = "MIT"
   s.author       = { "Phelthas" => "billthas@gmail.com" }
   s.platform     = :ios, "8.0"
-  s.source       = { :git => "https://github.com/Phelthas/LXMWaterfallLayout.git", :tag => "0.0.4" }
+  s.source       = { :git => "https://github.com/Phelthas/LXMWaterfallLayout.git", :tag => "1.0.0" }
   s.source_files  = "LXMWaterfallLayout/LXMWaterfallLayout/*.swift"
   s.exclude_files = "Classes/Exclude"
   # s.public_header_files = "OJASwiftKitDemo/OJASwiftKit/**/*.swift"
