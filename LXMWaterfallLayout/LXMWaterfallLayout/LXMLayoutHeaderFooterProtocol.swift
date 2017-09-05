@@ -142,11 +142,12 @@ extension LXMLayoutHeaderFooterProtocol where Self: UICollectionViewLayout {
 private var kLXMCollectionViewSectionItemAttributesDictKey = "kLXMCollectionViewSectionItemAttributesDictKey"
 private var kLXMCollectionViewSectionHeaderAttributesDictKey = "kLXMCollectionViewSectionHeaderAttributesDictKey"
 private var kLXMCollectionViewSectionFooterAttributesDictKey = "kLXMCollectionViewSectionFooterAttributesDictKey"
+private var kLXMCollectionViewAllAttributesArrayKey = "kLXMCollectionViewAllAttributesArrayKey"
 
-extension UICollectionViewFlowLayout {
+extension UICollectionViewLayout {
     
     /// 保存每个section中每个item的Attributes的字典，key是section
-    final var sectionItemAttributesDict: [Int : [UICollectionViewLayoutAttributes]]? {
+    var sectionItemAttributesDict: [Int : [UICollectionViewLayoutAttributes]]? {
         set {
             objc_setAssociatedObject(self, &kLXMCollectionViewSectionItemAttributesDictKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
@@ -176,7 +177,30 @@ extension UICollectionViewFlowLayout {
         }
     }
     
+    /// 所有item的attributes的数组，包括cell和SectionHeader，SectionFooter, collectionViewHeader, collectionViewFooter
+    var allAttributesArray: [UICollectionViewLayoutAttributes]? {
+        set {
+            objc_setAssociatedObject(self, &kLXMCollectionViewAllAttributesArrayKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+        get {
+            return objc_getAssociatedObject(self, &kLXMCollectionViewAllAttributesArrayKey) as? [UICollectionViewLayoutAttributes]
+        }
+    }
     
+    func clearAttributesIfEmpty() {
+        if let dict = self.sectionItemAttributesDict, dict.isEmpty {
+            self.sectionItemAttributesDict = nil
+        }
+        if let dict = self.sectionHeaderAttributesDict, dict.isEmpty {
+            self.sectionHeaderAttributesDict = nil
+        }
+        if let dict = self.sectionFooterAttributesDict, dict.isEmpty {
+            self.sectionFooterAttributesDict = nil
+        }
+        if let dict = self.allAttributesArray, dict.isEmpty {
+            self.allAttributesArray = nil
+        }
+    }
     
 }
 
@@ -204,6 +228,7 @@ extension Array {
 }
 
 
+// MARK: - Tool
 extension UICollectionViewFlowLayout {
     
     fileprivate var delegate: UICollectionViewDelegateFlowLayout? {

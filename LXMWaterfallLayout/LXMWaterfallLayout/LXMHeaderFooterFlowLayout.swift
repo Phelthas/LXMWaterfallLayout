@@ -24,8 +24,6 @@ class LXMHeaderFooterFlowLayout: UICollectionViewFlowLayout, LXMLayoutHeaderFoot
     
     var horiziontalAlignment: LXMLayoutHorizontalAlignment = .justified
     
-    fileprivate var allAttributesArray = [UICollectionViewLayoutAttributes]()
-    
 }
 
 extension LXMHeaderFooterFlowLayout {
@@ -41,7 +39,7 @@ extension LXMHeaderFooterFlowLayout {
         self.sectionItemAttributesDict = [Int : [UICollectionViewLayoutAttributes]]()
         self.sectionHeaderAttributesDict = [Int : UICollectionViewLayoutAttributes]()
         self.sectionFooterAttributesDict = [Int : UICollectionViewLayoutAttributes]()
-        self.allAttributesArray.removeAll()
+        self.allAttributesArray = [UICollectionViewLayoutAttributes]()
         
         
         for section in 0 ..< numberOfSections {
@@ -54,37 +52,31 @@ extension LXMHeaderFooterFlowLayout {
                 attributesArray.append(itemAttributes)
             }
             self.sectionItemAttributesDict?[section] = attributesArray.isEmpty ? nil : attributesArray
-            self.allAttributesArray.append(contentsOf: attributesArray)
+            self.allAttributesArray?.append(contentsOf: attributesArray)
             
             var headerAttributes = super.layoutAttributesForSupplementaryView(ofKind: UICollectionElementKindSectionHeader, at: IndexPath(item: 0, section: section))?.copy() as? UICollectionViewLayoutAttributes
             headerAttributes = self.updateAttributesForHeaderAndFooter(attributes: headerAttributes)
             self.sectionHeaderAttributesDict?[section] = headerAttributes
+            
             var footerAttributes = super.layoutAttributesForSupplementaryView(ofKind: UICollectionElementKindSectionFooter, at: IndexPath(item: 0, section: section))?.copy() as? UICollectionViewLayoutAttributes
             footerAttributes = self.updateAttributesForHeaderAndFooter(attributes: footerAttributes)
             self.sectionFooterAttributesDict?[section] = footerAttributes
         }
-        if self.sectionItemAttributesDict!.isEmpty {
-            self.sectionItemAttributesDict = nil
-        }
-        if self.sectionHeaderAttributesDict!.isEmpty {
-            self.sectionHeaderAttributesDict = nil
-        }
-        if self.sectionFooterAttributesDict!.isEmpty {
-            self.sectionFooterAttributesDict = nil
-        }
         
         self.allAttributesArray = self.updateAttributesForAlignment(attributesArray: self.allAttributesArray)
-        self.allAttributesArray.append(contentsOf: self.sectionHeaderAttributesDict?.values)
-        self.allAttributesArray.append(contentsOf: self.sectionFooterAttributesDict?.values)
-        self.allAttributesArray.append(self.collectionViewHeaderAttributes)
-        self.allAttributesArray.append(self.collectionViewFooterAttributes)
+        self.allAttributesArray?.append(contentsOf: self.sectionHeaderAttributesDict?.values)
+        self.allAttributesArray?.append(contentsOf: self.sectionFooterAttributesDict?.values)
+        self.allAttributesArray?.append(self.collectionViewHeaderAttributes)
+        self.allAttributesArray?.append(self.collectionViewFooterAttributes)
+        
+        self.clearAttributesIfEmpty()
     }
     
     
     open override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         //注意，这里直接调用super.layoutAttributesForElements(in rect: CGRect)在修改里面UICollectionViewLayoutAttributes的方法是不行的，系统应该是有做缓存，当所有UICollectionViewLayoutAttributes存在以后，系统就不会再调用此方法。这里因为多了header，所有item的位置都会相应下移，可能会使缓存的与返回的item有重复，导致位置错误
         
-        return self.allAttributesArray.filter({ (attributes) -> Bool in
+        return self.allAttributesArray?.filter({ (attributes) -> Bool in
             return attributes.frame.intersects(rect)
         })
     }
@@ -146,7 +138,8 @@ private extension LXMHeaderFooterFlowLayout {
         return groupArray
     }
     
-    func updateAttributesForAlignment(attributesArray: [UICollectionViewLayoutAttributes]) -> [UICollectionViewLayoutAttributes] {
+    func updateAttributesForAlignment(attributesArray: [UICollectionViewLayoutAttributes]?) -> [UICollectionViewLayoutAttributes]? {
+        guard let attributesArray = attributesArray else { return nil }
         let groupArray = self.groupedArray(attributesArray: attributesArray)
         var resultArray = [UICollectionViewLayoutAttributes]()
         for lineArray in groupArray {
@@ -167,7 +160,8 @@ private extension LXMHeaderFooterFlowLayout {
                         currentItem = attributes
                     }
                 }
-            } else if self.horiziontalAlignment == .right {
+            }
+            else if self.horiziontalAlignment == .right {
                 if var currentItem = lineArray.last {
                     if currentItem.representedElementKind != nil {
                         resultArray.append(currentItem)
@@ -185,7 +179,8 @@ private extension LXMHeaderFooterFlowLayout {
                         currentItem = attributes
                     }
                 }
-            } else if self.horiziontalAlignment == .center {
+            }
+            else if self.horiziontalAlignment == .center {
                 
                 if var currentItem = lineArray.first {
                     if currentItem.representedElementKind != nil {
@@ -208,7 +203,8 @@ private extension LXMHeaderFooterFlowLayout {
                         currentItem = attributes
                     }
                 }
-            } else if self.horiziontalAlignment == .justified {
+            }
+            else if self.horiziontalAlignment == .justified {
                 
                 if var currentItem = lineArray.first {
                     if currentItem.representedElementKind != nil {

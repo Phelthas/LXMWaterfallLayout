@@ -52,19 +52,6 @@ open class LXMWaterfallLayout: UICollectionViewLayout, LXMLayoutHeaderFooterProt
     /// 注意：是column的高度，而不是某个具体cell的高度
     fileprivate var columnHeights = [[CGFloat]]()
     
-    /// 保存每个section中每个item的Attributes，也是个二维数组
-    fileprivate var sectionItemAttributes = [[UICollectionViewLayoutAttributes]]()
-    
-    /// 保存sectionHeader的attributes的字典，key是section
-    fileprivate var sectionHeaderAttributesDict: [Int : UICollectionViewLayoutAttributes]?
-    
-    /// 保存sectionFooter的attributes的字典，key是section
-    fileprivate var sectionFooterAttributesDict: [Int : UICollectionViewLayoutAttributes]?
-    
-    /// 所有item的attributes的数组，包括cell和SectionHeader，SectionFooter, collectionViewHeader, collectionViewFooter
-    /// 注意这里是声明了新的属性而不是用LXMLayoutHeaderFooterProtocol协议里的默认属性，主要是考虑到不遵从LXMLayoutHeaderFooterProtocol时也会用到这个属性
-    fileprivate var allItemAttributesArray = [UICollectionViewLayoutAttributes]()
-    
 }
 
 
@@ -82,11 +69,13 @@ extension LXMWaterfallLayout {
         
         self.contentHeight = 0
         self.columnHeights.removeAll()
-        self.sectionHeaderAttributesDict = nil
-        self.sectionFooterAttributesDict = nil
+        self.sectionItemAttributesDict = [Int : [UICollectionViewLayoutAttributes]]()
+        self.sectionHeaderAttributesDict = [Int : UICollectionViewLayoutAttributes]()
+        self.sectionFooterAttributesDict = [Int : UICollectionViewLayoutAttributes]()
+        self.allAttributesArray = [UICollectionViewLayoutAttributes]()
         self.collectionViewHeaderAttributes = nil
         self.collectionViewFooterAttributes = nil
-        self.allItemAttributesArray.removeAll()
+        
         
         for section in 0 ..< numberOfSections {
             
@@ -98,29 +87,13 @@ extension LXMWaterfallLayout {
             }
             self.columnHeights.append(columnHeightArray)
             
-            //初始化sectionItemAttributes二维数组
+            //初始化sectionItemAttributesDict
             var attributesArray = [UICollectionViewLayoutAttributes]()
             let itemCount = collectionView.numberOfItems(inSection: section)
             for _ in 0 ..< itemCount {
                 attributesArray.append(UICollectionViewLayoutAttributes())
             }
-            self.sectionItemAttributes.append(attributesArray)
-            
-            //根据需要初始化sectionHeaderAttributesDict和sectionFooterAttributesDict
-            let sectionHeaderHeight = self.sectionHeaderHeight(atSection: section)
-            if sectionHeaderHeight > 0 {
-                if self.sectionHeaderAttributesDict == nil {
-                    self.sectionHeaderAttributesDict = [Int : UICollectionViewLayoutAttributes]()
-                }
-            }
-            
-            let sectionFooterHeight = self.sectionFooterHeight(atSection: section)
-            if sectionFooterHeight > 0 {
-                if self.sectionFooterAttributesDict == nil {
-                    self.sectionFooterAttributesDict = [Int : UICollectionViewLayoutAttributes]()
-                }
-            }
-            
+            self.sectionItemAttributesDict?[section] = attributesArray
         }
         
         contentHeight = self.collectionViewHeaderHeight
@@ -138,7 +111,7 @@ extension LXMWaterfallLayout {
                 attributes.frame = CGRect(x: 0, y: contentHeight, width: collectionViewWidth, height: sectionHeaderHeight)
                 self.sectionHeaderAttributesDict?[section] = attributes
                 contentHeight = attributes.frame.maxY
-                self.allItemAttributesArray.append(attributes)
+                self.allAttributesArray?.append(attributes)
             }
             
             let itemCount = collectionView.numberOfItems(inSection: section)
@@ -162,8 +135,8 @@ extension LXMWaterfallLayout {
                 let size = self.itemSize(atIndexPath: indexPath)
                 attributes.frame = CGRect(x: offsetX, y: offsetY, width: size.width, height: size.height)
                 self.columnHeights[section][columnIndex] = attributes.frame.maxY - contentHeight
-                self.sectionItemAttributes[indexPath.section][indexPath.item] = attributes
-                self.allItemAttributesArray.append(attributes)
+                self.sectionItemAttributesDict?[indexPath.section]?[indexPath.item] = attributes
+                self.allAttributesArray?.append(attributes)
             }
             
             if let maxColumnHeight = self.columnHeights[section].max() {
@@ -179,19 +152,22 @@ extension LXMWaterfallLayout {
                 attributes.frame = CGRect(x: 0, y: contentHeight, width: collectionViewWidth, height: sectionFooterHeight)
                 self.sectionFooterAttributesDict?[section] = attributes
                 contentHeight = attributes.frame.maxY
-                self.allItemAttributesArray.append(attributes)
+                self.allAttributesArray?.append(attributes)
             }
             
         }
         contentHeight += self.collectionViewFooterHeight
-        self.allItemAttributesArray.append(self.collectionViewHeaderAttributes)
-        self.allItemAttributesArray.append(self.collectionViewFooterAttributes)
+        self.allAttributesArray?.append(self.collectionViewHeaderAttributes)
+        self.allAttributesArray?.append(self.collectionViewFooterAttributes)
+        
+        self.clearAttributesIfEmpty()
+        
     }
     
     
     open override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         
-        let resultArray = self.allItemAttributesArray.filter { (tempAttributes) -> Bool in
+        let resultArray = self.allAttributesArray?.filter { (tempAttributes) -> Bool in
             return tempAttributes.frame.intersects(rect)
         }
         return resultArray
@@ -200,11 +176,9 @@ extension LXMWaterfallLayout {
     
     
     open override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        if indexPath.section < self.sectionItemAttributes.count {
-            let attributesArray = self.sectionItemAttributes[indexPath.section]
-            if indexPath.item < attributesArray.count {
-                return attributesArray[indexPath.item]
-            }
+        if let attributesArray = self.sectionItemAttributesDict?[indexPath.section],
+            indexPath.item < attributesArray.count {
+            return attributesArray[indexPath.item]
         }
         return nil
     }
