@@ -17,12 +17,16 @@ enum LXMLayoutHorizontalAlignment {
     case right // Visually right aligned
     
     case justified // Fully-justified
+    
+    case none  // use UICollectionViewFlowLayout's alignment
 }
 
 
 class LXMHeaderFooterFlowLayout: UICollectionViewFlowLayout, LXMLayoutHeaderFooterProtocol {
     
-    var horiziontalAlignment: LXMLayoutHorizontalAlignment = .justified
+    
+    /// Notice: horiziontalAlignment does nothing when scrollDirection == .horizontal
+    var horiziontalAlignment: LXMLayoutHorizontalAlignment = .left
     
 }
 
@@ -126,19 +130,38 @@ private extension LXMHeaderFooterFlowLayout {
         var currentSection: Int = -1
         var currentValue: CGFloat = CGFloat.greatestFiniteMagnitude
         for attributes in attributesArray {
-            if attributes.center.y == currentValue {
-                groupArray[currentSection].append(attributes)
+            if self.scrollDirection == .vertical {
+                if attributes.center.y == currentValue {
+                    groupArray[currentSection].append(attributes)
+                } else {
+                    currentSection += 1
+                    groupArray.append([UICollectionViewLayoutAttributes]())
+                    groupArray[currentSection].append(attributes)
+                    currentValue = attributes.center.y
+                }
             } else {
-                currentSection += 1
-                groupArray.append([UICollectionViewLayoutAttributes]())
-                groupArray[currentSection].append(attributes)
-                currentValue = attributes.center.y
+                if attributes.center.x == currentValue {
+                    groupArray[currentSection].append(attributes)
+                } else {
+                    currentSection += 1
+                    groupArray.append([UICollectionViewLayoutAttributes]())
+                    groupArray[currentSection].append(attributes)
+                    currentValue = attributes.center.y
+                }
             }
+            
+            
         }
         return groupArray
     }
     
     func updateAttributesForAlignment(attributesArray: [UICollectionViewLayoutAttributes]?) -> [UICollectionViewLayoutAttributes]? {
+        if self.horiziontalAlignment == .none {
+            return attributesArray
+        }
+        if self.scrollDirection == .horizontal {
+            return attributesArray
+        }
         guard let attributesArray = attributesArray else { return nil }
         let groupArray = self.groupedArray(attributesArray: attributesArray)
         var resultArray = [UICollectionViewLayoutAttributes]()

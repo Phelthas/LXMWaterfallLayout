@@ -85,6 +85,12 @@ extension LXMLayoutHeaderFooterProtocol where Self: UICollectionViewLayout {
                                               y: 0,
                                               width: self.collectionViewContentSize.width,
                                               height: self.collectionViewHeaderHeight)
+                    if let layout = self as? UICollectionViewFlowLayout, layout.scrollDirection == .horizontal {
+                        attributes.frame = CGRect(x: 0,
+                                                  y: 0,
+                                                  width: self.collectionViewHeaderHeight,
+                                                  height: self.collectionViewContentSize.height)
+                    }
                     self.collectionViewHeaderAttributes = attributes
                     return attributes
                 }
@@ -107,6 +113,12 @@ extension LXMLayoutHeaderFooterProtocol where Self: UICollectionViewLayout {
                                               y: self.collectionViewContentSize.height - self.collectionViewFooterHeight,
                                               width: self.collectionViewContentSize.width,
                                               height: self.collectionViewFooterHeight)
+                    if let layout = self as? UICollectionViewFlowLayout, layout.scrollDirection == .horizontal {
+                        attributes.frame = CGRect(x: self.collectionViewContentSize.width - self.collectionViewFooterHeight,
+                                                  y: 0,
+                                                  width: self.collectionViewHeaderHeight,
+                                                  height: self.collectionViewContentSize.height)
+                    }
                     self.collectionViewFooterAttributes = attributes
                     return attributes
                 }
@@ -119,7 +131,13 @@ extension LXMLayoutHeaderFooterProtocol where Self: UICollectionViewLayout {
     
     func updateAttributesForHeaderAndFooter(attributes: UICollectionViewLayoutAttributes?) -> UICollectionViewLayoutAttributes? {
         if let result = attributes?.copy() as? UICollectionViewLayoutAttributes {
-            result.frame.origin.y += self.collectionViewHeaderHeight
+            
+            if let layout = self as? UICollectionViewFlowLayout, layout.scrollDirection == .horizontal {
+                result.frame.origin.x += self.collectionViewHeaderHeight
+            } else {
+                result.frame.origin.y += self.collectionViewHeaderHeight
+            }
+
             return result
         }
         return nil
@@ -128,7 +146,11 @@ extension LXMLayoutHeaderFooterProtocol where Self: UICollectionViewLayout {
     
     func updateContentSizeForHeaderAndFooter(contentSize: CGSize) -> CGSize {
         var size = contentSize
-        size.height += self.collectionViewHeaderHeight + self.collectionViewFooterHeight
+        if let layout = self as? UICollectionViewFlowLayout, layout.scrollDirection == .horizontal {
+            size.width += self.collectionViewHeaderHeight + self.collectionViewFooterHeight
+        } else {
+            size.height += self.collectionViewHeaderHeight + self.collectionViewFooterHeight
+        }
         return size
     }
     

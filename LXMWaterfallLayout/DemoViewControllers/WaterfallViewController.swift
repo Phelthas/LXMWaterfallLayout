@@ -21,7 +21,7 @@ extension WaterfallViewController {
         
         let layout = LXMWaterfallLayout()
         layout.columnCount = 3
-        layout.minimumColumnSpacing = 30
+        layout.minimumColumnSpacing = 5
         layout.minimumInteritemSpacing = 20
         layout.sectionInset = UIEdgeInsets(top: 10, left: 20, bottom: 30, right: 40)
         layout.sectionHeaderHeight = 100

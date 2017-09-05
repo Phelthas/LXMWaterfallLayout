@@ -10,9 +10,6 @@ import UIKit
 
 class HeaderFooterViewController: DemoBaseViewController {
 
-    deinit {
-        print("HeaderFooterViewController deinit")
-    }
 }
 
 // MARK: - Lifecycle
@@ -23,10 +20,12 @@ extension HeaderFooterViewController {
         
 //        let layout = UICollectionViewFlowLayout()
         let layout = LXMHeaderFooterFlowLayout()
-        layout.minimumInteritemSpacing = 5
+        layout.minimumInteritemSpacing = 20
+        layout.minimumLineSpacing = 5
 //        layout.sectionInset = UIEdgeInsets(top: 10, left: 20, bottom: 30, right: 40)
         layout.collectionViewHeaderHeight = 200
         layout.collectionViewFooterHeight = 300
+        layout.scrollDirection = .horizontal
         
         self.collectionView.collectionViewLayout = layout
         
@@ -76,6 +75,10 @@ extension HeaderFooterViewController {
 }
 
 extension HeaderFooterViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return sizeArray[indexPath.item]
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section == 0 {

@@ -21,8 +21,9 @@ extension FlowViewController {
         
         let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.minimumInteritemSpacing = 20
+        layout.minimumLineSpacing = 5
         layout.sectionInset = UIEdgeInsets(top: 10, left: 20, bottom: 30, right: 40)
-        
+        layout.scrollDirection = .horizontal
         
         let sectionNib = UINib(nibName: "TestSectionView", bundle: nil)
         collectionView.register(sectionNib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader , withReuseIdentifier: TestSectionViewIdentifier)
@@ -66,25 +67,25 @@ extension FlowViewController: UICollectionViewDelegateFlowLayout {
         return sizeArray[indexPath.item]
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        if section == 0 {
-            return 20
-        } else if section == 1 {
-            return 10
-        } else {
-            return 0
-        }
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+//        if section == 0 {
+//            return 20
+//        } else if section == 1 {
+//            return 10
+//        } else {
+//            return 0
+//        }
+//    }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        if section == 0 {
-            return 20
-        } else if section == 1 {
-            return 10
-        } else {
-            return 0
-        }
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+//        if section == 0 {
+//            return 20
+//        } else if section == 1 {
+//            return 10
+//        } else {
+//            return 0
+//        }
+//    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section == 0 {
