@@ -116,7 +116,7 @@ extension LXMLayoutHeaderFooterProtocol where Self: UICollectionViewLayout {
                     if let layout = self as? UICollectionViewFlowLayout, layout.scrollDirection == .horizontal {
                         attributes.frame = CGRect(x: self.collectionViewContentSize.width - self.collectionViewFooterHeight,
                                                   y: 0,
-                                                  width: self.collectionViewHeaderHeight,
+                                                  width: self.collectionViewFooterHeight,
                                                   height: self.collectionViewContentSize.height)
                     }
                     self.collectionViewFooterAttributes = attributes

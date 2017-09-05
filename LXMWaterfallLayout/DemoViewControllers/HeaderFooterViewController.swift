@@ -22,7 +22,7 @@ extension HeaderFooterViewController {
         let layout = LXMHeaderFooterFlowLayout()
         layout.minimumInteritemSpacing = 20
         layout.minimumLineSpacing = 5
-//        layout.sectionInset = UIEdgeInsets(top: 10, left: 20, bottom: 30, right: 40)
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 20, bottom: 30, right: 40)
         layout.collectionViewHeaderHeight = 200
         layout.collectionViewFooterHeight = 300
         layout.scrollDirection = .horizontal
