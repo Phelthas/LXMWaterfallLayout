@@ -16,18 +16,31 @@ enum LXMLayoutHorizontalAlignment {
     
     case right // Visually right aligned
     
-    case justified // Fully-justified
+    case justified // Fully-justified, it is different from UICollectionViewFlowLayout default behavior, which will layout the cell in last line one by one with minimumInteritemSpacing if there is not enough cell.
     
     case none  // use UICollectionViewFlowLayout's alignment
 }
 
+enum LXMLayoutVerticalAlignment {
+    
+    case top // Visually top aligned
+    
+    case center // Visually centered
+    
+    case bottom // Visually bottom aligned
+    
+    case justified // Fully-justified, it is different from UICollectionViewFlowLayout default behavior, which will layout the cell in last line one by one with minimumInteritemSpacing if there is not enough cell.
+    
+    case none  // use UICollectionViewFlowLayout's alignment
+}
 
 class LXMHeaderFooterFlowLayout: UICollectionViewFlowLayout, LXMLayoutHeaderFooterProtocol {
     
-    
     /// Notice: horiziontalAlignment does nothing when scrollDirection == .horizontal
-    var horiziontalAlignment: LXMLayoutHorizontalAlignment = .left
+    var horiziontalAlignment: LXMLayoutHorizontalAlignment = .none
     
+    /// Notice: verticalAlignment does nothing when scrollDirection == .vertical
+    var verticalAlignment: LXMLayoutVerticalAlignment = .none
 }
 
 extension LXMHeaderFooterFlowLayout {
@@ -146,7 +159,7 @@ private extension LXMHeaderFooterFlowLayout {
                     currentSection += 1
                     groupArray.append([UICollectionViewLayoutAttributes]())
                     groupArray[currentSection].append(attributes)
-                    currentValue = attributes.center.y
+                    currentValue = attributes.center.x
                 }
             }
             
@@ -156,106 +169,198 @@ private extension LXMHeaderFooterFlowLayout {
     }
     
     func updateAttributesForAlignment(attributesArray: [UICollectionViewLayoutAttributes]?) -> [UICollectionViewLayoutAttributes]? {
-        if self.horiziontalAlignment == .none {
+        if self.scrollDirection == .vertical && self.horiziontalAlignment == .none {
             return attributesArray
         }
-        if self.scrollDirection == .horizontal {
+        if self.scrollDirection == .horizontal && self.verticalAlignment == .none {
             return attributesArray
         }
+        
         guard let attributesArray = attributesArray else { return nil }
         let groupArray = self.groupedArray(attributesArray: attributesArray)
         var resultArray = [UICollectionViewLayoutAttributes]()
         for lineArray in groupArray {
             
-            if self.horiziontalAlignment == .left {
-                if var currentItem = lineArray.first {
-                    if currentItem.representedElementKind != nil {
+            if self.scrollDirection == .vertical {
+                if self.horiziontalAlignment == .left {
+                    if var currentItem = lineArray.first {
+                        if currentItem.representedElementKind != nil {
+                            resultArray.append(currentItem)
+                            continue
+                        }
+                        
+                        currentItem.frame.origin.x = insetForSection(at: currentItem.indexPath.section).left
                         resultArray.append(currentItem)
-                        continue
+                        for i in 1 ..< lineArray.count {
+                            let attributes = lineArray[i]
+                            attributes.frame.origin.x = currentItem.frame.maxX + minimumInteritemSpacingForSection(at: currentItem.indexPath.section)
+                            resultArray.append(attributes)
+                            currentItem = attributes
+                        }
                     }
+                }
+                else if self.horiziontalAlignment == .right {
+                    if var currentItem = lineArray.last {
+                        if currentItem.representedElementKind != nil {
+                            resultArray.append(currentItem)
+                            continue
+                        }
+                        let rightSpacing = insetForSection(at: currentItem.indexPath.section).right
+                        
+                        currentItem.frame.origin.x = self.collectionViewContentSize.width - rightSpacing - currentItem.frame.width
+                        resultArray.append(currentItem)
+                        
+                        for i in 1 ..< lineArray.count {
+                            let attributes = lineArray[lineArray.count - 1 - i]
+                            attributes.frame.origin.x = currentItem.frame.minX - minimumInteritemSpacingForSection(at: currentItem.indexPath.section) - attributes.frame.width
+                            resultArray.append(attributes)
+                            currentItem = attributes
+                        }
+                    }
+                }
+                else if self.horiziontalAlignment == .center {
                     
-                    currentItem.frame.origin.x = insetForSection(at: currentItem.indexPath.section).left
-                    resultArray.append(currentItem)
-                    for i in 1 ..< lineArray.count {
-                        let attributes = lineArray[i]
-                        attributes.frame.origin.x = currentItem.frame.maxX + minimumInteritemSpacingForSection(at: currentItem.indexPath.section)
-                        resultArray.append(attributes)
-                        currentItem = attributes
+                    if var currentItem = lineArray.first {
+                        if currentItem.representedElementKind != nil {
+                            resultArray.append(currentItem)
+                            continue
+                        }
+                        let inset = insetForSection(at: currentItem.indexPath.section)
+                        let totalItemWidth = lineArray.reduce(0, { (result, attributes) in
+                            return result + attributes.frame.width
+                        })
+                        let itemSpacing = minimumInteritemSpacingForSection(at: currentItem.indexPath.section)
+                        let sapcing = (self.collectionViewContentSize.width - inset.left - inset.right - totalItemWidth - (itemSpacing * CGFloat(lineArray.count - 1))) / 2
+                        
+                        currentItem.frame.origin.x = sapcing
+                        resultArray.append(currentItem)
+                        for i in 1 ..< lineArray.count {
+                            let attributes = lineArray[i]
+                            attributes.frame.origin.x = currentItem.frame.maxX + itemSpacing
+                            resultArray.append(attributes)
+                            currentItem = attributes
+                        }
+                    }
+                }
+                else if self.horiziontalAlignment == .justified {
+                    
+                    if var currentItem = lineArray.first {
+                        if currentItem.representedElementKind != nil {
+                            resultArray.append(currentItem)
+                            continue
+                        }
+                        let inset = insetForSection(at: currentItem.indexPath.section)
+                        let totalItemWidth = lineArray.reduce(0, { (result, attributes) in
+                            return result + attributes.frame.width
+                        })
+                        
+                        currentItem.frame.origin.x = inset.left
+                        resultArray.append(currentItem)
+                        if lineArray.count == 1 {
+                            continue
+                        }
+                        
+                        let sapcing = (self.collectionViewContentSize.width - inset.left - inset.right - totalItemWidth) / CGFloat(lineArray.count - 1)
+                        
+                        for i in 1 ..< lineArray.count {
+                            let attributes = lineArray[i]
+                            attributes.frame.origin.x = currentItem.frame.maxX + sapcing
+                            resultArray.append(attributes)
+                            currentItem = attributes
+                        }
                     }
                 }
             }
-            else if self.horiziontalAlignment == .right {
-                if var currentItem = lineArray.last {
-                    if currentItem.representedElementKind != nil {
+            else {
+                if self.verticalAlignment == .top {
+                    if var currentItem = lineArray.first {
+                        if currentItem.representedElementKind != nil {
+                            resultArray.append(currentItem)
+                            continue
+                        }
+                        
+                        currentItem.frame.origin.y = insetForSection(at: currentItem.indexPath.section).top
                         resultArray.append(currentItem)
-                        continue
+                        for i in 1 ..< lineArray.count {
+                            let attributes = lineArray[i]
+                            attributes.frame.origin.y = currentItem.frame.maxY + minimumLineSpacingForSection(at: currentItem.indexPath.section)
+                            resultArray.append(attributes)
+                            currentItem = attributes
+                        }
                     }
-                    let rightSpacing = insetForSection(at: currentItem.indexPath.section).right
+                }
+                else if self.verticalAlignment == .bottom {
+                    if var currentItem = lineArray.last {
+                        if currentItem.representedElementKind != nil {
+                            resultArray.append(currentItem)
+                            continue
+                        }
+                        let bottomSpacing = insetForSection(at: currentItem.indexPath.section).bottom
+                        
+                        currentItem.frame.origin.y = self.collectionViewContentSize.height - bottomSpacing - currentItem.frame.height
+                        resultArray.append(currentItem)
+                        
+                        for i in 1 ..< lineArray.count {
+                            let attributes = lineArray[lineArray.count - 1 - i]
+                            attributes.frame.origin.y = currentItem.frame.minY - minimumLineSpacingForSection(at: currentItem.indexPath.section) - attributes.frame.height
+                            resultArray.append(attributes)
+                            currentItem = attributes
+                        }
+                    }
+                }
+                else if self.verticalAlignment == .center {
                     
-                    currentItem.frame.origin.x = self.collectionViewContentSize.width - rightSpacing - currentItem.frame.width
-                    resultArray.append(currentItem)
+                    if var currentItem = lineArray.first {
+                        if currentItem.representedElementKind != nil {
+                            resultArray.append(currentItem)
+                            continue
+                        }
+                        let inset = insetForSection(at: currentItem.indexPath.section)
+                        let totalItemHeight = lineArray.reduce(0, { (result, attributes) in
+                            return result + attributes.frame.height
+                        })
+                        let lineSpacing = minimumLineSpacingForSection(at: currentItem.indexPath.section)
+                        let sapcing = (self.collectionViewContentSize.height - inset.top - inset.bottom - totalItemHeight - (lineSpacing * CGFloat(lineArray.count - 1))) / 2
+                        
+                        currentItem.frame.origin.y = sapcing
+                        resultArray.append(currentItem)
+                        for i in 1 ..< lineArray.count {
+                            let attributes = lineArray[i]
+                            attributes.frame.origin.y = currentItem.frame.maxY + lineSpacing
+                            resultArray.append(attributes)
+                            currentItem = attributes
+                        }
+                    }
+                }
+                else if self.verticalAlignment == .justified {
                     
-                    for i in 1 ..< lineArray.count {
-                        let attributes = lineArray[lineArray.count - 1 - i]
-                        attributes.frame.origin.x = currentItem.frame.minX - minimumInteritemSpacingForSection(at: currentItem.indexPath.section) - attributes.frame.width
-                        resultArray.append(attributes)
-                        currentItem = attributes
+                    if var currentItem = lineArray.first {
+                        if currentItem.representedElementKind != nil {
+                            resultArray.append(currentItem)
+                            continue
+                        }
+                        let inset = insetForSection(at: currentItem.indexPath.section)
+                        let totalItemHeight = lineArray.reduce(0, { (result, attributes) in
+                            return result + attributes.frame.height
+                        })
+                        
+                        currentItem.frame.origin.y = inset.top
+                        resultArray.append(currentItem)
+                        if lineArray.count == 1 {
+                            continue
+                        }
+                        
+                        let sapcing = (self.collectionViewContentSize.height - inset.top - inset.bottom - totalItemHeight) / CGFloat(lineArray.count - 1)
+                        
+                        for i in 1 ..< lineArray.count {
+                            let attributes = lineArray[i]
+                            attributes.frame.origin.y = currentItem.frame.maxY + sapcing
+                            resultArray.append(attributes)
+                            currentItem = attributes
+                        }
                     }
                 }
             }
-            else if self.horiziontalAlignment == .center {
-                
-                if var currentItem = lineArray.first {
-                    if currentItem.representedElementKind != nil {
-                        resultArray.append(currentItem)
-                        continue
-                    }
-                    let inset = insetForSection(at: currentItem.indexPath.section)
-                    let totalItemWidth = lineArray.reduce(0, { (result, attributes) in
-                        return result + attributes.frame.width
-                    })
-                    let itemSpacing = minimumInteritemSpacingForSection(at: currentItem.indexPath.section)
-                    let sapcing = (self.collectionViewContentSize.width - inset.left - inset.right - totalItemWidth - (itemSpacing * CGFloat(lineArray.count - 1))) / 2
-                    
-                    currentItem.frame.origin.x = sapcing
-                    resultArray.append(currentItem)
-                    for i in 1 ..< lineArray.count {
-                        let attributes = lineArray[i]
-                        attributes.frame.origin.x = currentItem.frame.maxX + itemSpacing
-                        resultArray.append(attributes)
-                        currentItem = attributes
-                    }
-                }
-            }
-            else if self.horiziontalAlignment == .justified {
-                
-                if var currentItem = lineArray.first {
-                    if currentItem.representedElementKind != nil {
-                        resultArray.append(currentItem)
-                        continue
-                    }
-                    let inset = insetForSection(at: currentItem.indexPath.section)
-                    let totalItemWidth = lineArray.reduce(0, { (result, attributes) in
-                        return result + attributes.frame.width
-                    })
-                    
-                    currentItem.frame.origin.x = inset.left
-                    resultArray.append(currentItem)
-                    if lineArray.count == 1 {
-                        continue
-                    }
-                    
-                    let sapcing = (self.collectionViewContentSize.width - inset.left - inset.right - totalItemWidth) / CGFloat(lineArray.count - 1)
-                    
-                    for i in 1 ..< lineArray.count {
-                        let attributes = lineArray[i]
-                        attributes.frame.origin.x = currentItem.frame.maxX + sapcing
-                        resultArray.append(attributes)
-                        currentItem = attributes
-                    }
-                }
-            }
-            
             
         }
         return resultArray
