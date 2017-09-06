@@ -22,6 +22,8 @@
 		439423781F51591C00E0A098 /* HeaderFooterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439423771F51591C00E0A098 /* HeaderFooterViewController.swift */; };
 		4394237C1F516BAB00E0A098 /* LXMLayoutHeaderFooterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4394237B1F516BAB00E0A098 /* LXMLayoutHeaderFooterProtocol.swift */; };
 		4394237E1F5183B100E0A098 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4394237D1F5183B100E0A098 /* TestViewController.swift */; };
+		43D57B051F5FCEC500541E5C /* MyTestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D57B041F5FCEC500541E5C /* MyTestLayout.swift */; };
+		43D57B071F5FD7B000541E5C /* MyTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D57B061F5FD7B000541E5C /* MyTestViewController.swift */; };
 		43D591FB1F53B7E700592CF9 /* TestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D591FA1F53B7E700592CF9 /* TestObject.m */; };
 		43E64B681F5010E500C6391C /* LXMWaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E64B671F5010E500C6391C /* LXMWaterfallLayout.swift */; };
 		43E842A71F5699C5007AD5DB /* LXMHeaderFooterFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E842A61F5699C5007AD5DB /* LXMHeaderFooterFlowLayout.swift */; };
@@ -45,6 +47,8 @@
 		439423771F51591C00E0A098 /* HeaderFooterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderFooterViewController.swift; sourceTree = "<group>"; };
 		4394237B1F516BAB00E0A098 /* LXMLayoutHeaderFooterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LXMLayoutHeaderFooterProtocol.swift; sourceTree = "<group>"; };
 		4394237D1F5183B100E0A098 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		43D57B041F5FCEC500541E5C /* MyTestLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTestLayout.swift; sourceTree = "<group>"; };
+		43D57B061F5FD7B000541E5C /* MyTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTestViewController.swift; sourceTree = "<group>"; };
 		43D591F81F53B7E700592CF9 /* LXMWaterfallLayout-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LXMWaterfallLayout-Bridging-Header.h"; sourceTree = "<group>"; };
 		43D591F91F53B7E700592CF9 /* TestObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestObject.h; sourceTree = "<group>"; };
 		43D591FA1F53B7E700592CF9 /* TestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestObject.m; sourceTree = "<group>"; };
@@ -85,6 +89,7 @@
 				438100C91F4D760700ABC6BA /* AppDelegate.swift */,
 				439423611F514EC900E0A098 /* DemoListViewController.swift */,
 				4394237D1F5183B100E0A098 /* TestViewController.swift */,
+				43D57B041F5FCEC500541E5C /* MyTestLayout.swift */,
 				43D591F91F53B7E700592CF9 /* TestObject.h */,
 				43D591FA1F53B7E700592CF9 /* TestObject.m */,
 				439423631F51542400E0A098 /* CommonView */,
@@ -117,6 +122,7 @@
 				439423731F51550F00E0A098 /* WaterfallViewController.swift */,
 				439423771F51591C00E0A098 /* HeaderFooterViewController.swift */,
 				439423751F51573500E0A098 /* FlowViewController.swift */,
+				43D57B061F5FD7B000541E5C /* MyTestViewController.swift */,
 			);
 			path = DemoViewControllers;
 			sourceTree = "<group>";
@@ -207,6 +213,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43D57B071F5FD7B000541E5C /* MyTestViewController.swift in Sources */,
 				438100CA1F4D760700ABC6BA /* AppDelegate.swift in Sources */,
 				4394236B1F51542400E0A098 /* TestCollectionViewCell.swift in Sources */,
 				43D591FB1F53B7E700592CF9 /* TestObject.m in Sources */,
@@ -220,6 +227,7 @@
 				4394237E1F5183B100E0A098 /* TestViewController.swift in Sources */,
 				43E842A71F5699C5007AD5DB /* LXMHeaderFooterFlowLayout.swift in Sources */,
 				439423621F514EC900E0A098 /* DemoListViewController.swift in Sources */,
+				43D57B051F5FCEC500541E5C /* MyTestLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

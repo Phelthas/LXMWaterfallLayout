@@ -23,6 +23,7 @@ class DemoListViewController: UIViewController {
     fileprivate var dataArray: [String] = ["LXMWaterfallLayout",
                                            "LXMHeaderFooterFlowLayout",
                                            "Horizontal",
+                                           "MyTestLayout",
                                            "UICollectionViewFlowLayout",
                                            "Test"]
 
@@ -75,6 +76,8 @@ extension DemoListViewController: UITableViewDelegate {
             viewController = HeaderFooterViewController()
             (viewController as! HeaderFooterViewController).scrollDirection = .horizontal
         } else if indexPath.row == 3 {
+            viewController = MyTestViewController()
+        } else if indexPath.row == 4 {
             viewController = FlowViewController()
         } else {
             viewController = TestViewController()

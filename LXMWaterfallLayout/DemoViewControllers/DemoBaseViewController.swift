@@ -92,6 +92,7 @@ extension DemoBaseViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("didSelectItemAt \(indexPath)")
+        
     }
 }
 
