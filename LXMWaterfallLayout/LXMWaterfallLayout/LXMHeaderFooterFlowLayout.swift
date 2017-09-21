@@ -127,7 +127,8 @@ extension LXMHeaderFooterFlowLayout {
     
     open override func shouldInvalidateLayout (forBoundsChange newBounds: CGRect) -> Bool {
         if let collectionView = self.collectionView {
-            if newBounds.width != collectionView.bounds.width {
+            if newBounds.width != collectionView.bounds.width ||
+                newBounds.height != collectionView.bounds.height {
                 return true
             }
         }

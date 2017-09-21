@@ -163,9 +163,32 @@ extension LXMWaterfallLayout {
         self.clearAttributesIfEmpty()
         
     }
-    
-    
+
     open override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+
+        
+        /// 用这几句加上 shouldInvalidateLayout(forBoundsChange newBounds: CGRect)方法配合就可以实现悬浮header，但是貌似意义不大，跟直接add个view上去效果一样
+//        if let collectionView = self.collectionView, let headerAttributes = self.collectionViewHeaderAttributes {
+//            let currentOffset = collectionView.contentOffset.y + collectionView.contentInset.top
+//            headerAttributes.frame.origin.y = currentOffset
+//            headerAttributes.zIndex = 1
+//            if currentOffset < 0 {
+//                headerAttributes.frame.size.height = headerAttributes.frame.height - currentOffset
+//            }
+//        }
+        
+        
+        /// 用这几句加上 shouldInvalidateLayout(forBoundsChange newBounds: CGRect)方法配合就可以实现 跟着滑动放大的header，但是跟上面一样，会导致每次滑动都要重新计算所有的layout，效率很低
+//        if let collectionView = self.collectionView,
+//            let headerAttributes = self.collectionViewHeaderAttributes {
+//            let currentOffset = collectionView.contentOffset.y + collectionView.contentInset.top
+//            if currentOffset < 0 {
+//                headerAttributes.frame.origin.y = currentOffset
+//                headerAttributes.frame.size.height = self.collectionViewHeaderHeight - currentOffset
+//            }
+//            
+//        }
+        
         
         let resultArray = self.allAttributesArray?.filter { (tempAttributes) -> Bool in
             return tempAttributes.frame.intersects(rect)
@@ -210,9 +233,10 @@ extension LXMWaterfallLayout {
     }
     
     
-    open override func shouldInvalidateLayout (forBoundsChange newBounds: CGRect) -> Bool {
+    open override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         if let collectionView = self.collectionView {
-            if newBounds.width != collectionView.bounds.width {
+            if newBounds.width != collectionView.bounds.width ||
+                newBounds.height != collectionView.bounds.height {
                 return true
             }
         }
