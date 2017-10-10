@@ -9,6 +9,11 @@
 #import "TestObject.h"
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import "LXMWaterfallLayout-Swift.h"
+
+@interface TestObject ()
+
+@end
 
 @implementation TestObject
 
