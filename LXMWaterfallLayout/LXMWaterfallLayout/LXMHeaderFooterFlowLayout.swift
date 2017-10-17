@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum LXMLayoutHorizontalAlignment {
+public enum LXMLayoutHorizontalAlignment {
     
     case left // Visually left aligned
     
@@ -21,7 +21,7 @@ enum LXMLayoutHorizontalAlignment {
     case none  // use UICollectionViewFlowLayout's alignment
 }
 
-enum LXMLayoutVerticalAlignment {
+public enum LXMLayoutVerticalAlignment {
     
     case top // Visually top aligned
     
@@ -34,7 +34,7 @@ enum LXMLayoutVerticalAlignment {
     case none  // use UICollectionViewFlowLayout's alignment
 }
 
-class LXMHeaderFooterFlowLayout: UICollectionViewFlowLayout, LXMLayoutHeaderFooterProtocol {
+open class LXMHeaderFooterFlowLayout: UICollectionViewFlowLayout, LXMLayoutHeaderFooterProtocol {
     
     /// Notice: horiziontalAlignment does nothing when scrollDirection == .horizontal
     var horiziontalAlignment: LXMLayoutHorizontalAlignment = .none

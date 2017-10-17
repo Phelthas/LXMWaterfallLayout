@@ -18,7 +18,7 @@ public let LXMCollectionElementKindFooter: String = "LXMCollectionElementKindFoo
 /// 此协议声明成只有类可以遵守，因为本来就是给UICollectionViewLayout用的
 /// 里面有修改self属性的方法，如果结构体等值类型也可以遵守该协议的话，会复杂很多
 /// 具体原因见：https://www.bignerdranch.com/blog/protocol-oriented-problems-and-the-immutable-self-error/
-protocol LXMLayoutHeaderFooterProtocol: class {
+public protocol LXMLayoutHeaderFooterProtocol: class {
     
     var collectionViewHeaderHeight: CGFloat { get set }
     
@@ -41,7 +41,7 @@ private var kLXMCollectionViewFooterHeightKey: String = "kLXMCollectionViewFoote
 private var kLXMCollectionViewHeaderAttributesKey: String = "kLXMCollectionViewHeaderAttributesKey"
 private var kLXMCollectionViewFooterAttributesKey: String = "kLXMCollectionViewFooterAttributesKey"
 
-extension LXMLayoutHeaderFooterProtocol where Self: UICollectionViewLayout {
+public extension LXMLayoutHeaderFooterProtocol where Self: UICollectionViewLayout {
     
     var collectionViewHeaderHeight: CGFloat {
         set {
@@ -166,7 +166,7 @@ private var kLXMCollectionViewSectionHeaderAttributesDictKey = "kLXMCollectionVi
 private var kLXMCollectionViewSectionFooterAttributesDictKey = "kLXMCollectionViewSectionFooterAttributesDictKey"
 private var kLXMCollectionViewAllAttributesArrayKey = "kLXMCollectionViewAllAttributesArrayKey"
 
-extension UICollectionViewLayout {
+public extension UICollectionViewLayout {
     
     /// 保存每个section中每个item的Attributes的字典，key是section
     var sectionItemAttributesDict: [Int : [UICollectionViewLayoutAttributes]]? {
@@ -251,7 +251,7 @@ extension Array {
 
 
 // MARK: - Tool
-extension UICollectionViewFlowLayout {
+public extension UICollectionViewFlowLayout {
     
     fileprivate var delegate: UICollectionViewDelegateFlowLayout? {
         return self.collectionView?.delegate as? UICollectionViewDelegateFlowLayout
