@@ -37,10 +37,10 @@ public enum LXMLayoutVerticalAlignment {
 open class LXMHeaderFooterFlowLayout: UICollectionViewFlowLayout, LXMLayoutHeaderFooterProtocol {
     
     /// Notice: horiziontalAlignment does nothing when scrollDirection == .horizontal
-    var horiziontalAlignment: LXMLayoutHorizontalAlignment = .none
+    open var horiziontalAlignment: LXMLayoutHorizontalAlignment = .none
     
     /// Notice: verticalAlignment does nothing when scrollDirection == .vertical
-    var verticalAlignment: LXMLayoutVerticalAlignment = .none
+    open var verticalAlignment: LXMLayoutVerticalAlignment = .none
 }
 
 extension LXMHeaderFooterFlowLayout {
