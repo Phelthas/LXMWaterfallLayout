@@ -56,6 +56,8 @@ extension LXMHeaderFooterFlowLayout {
         self.sectionItemAttributesDict = [Int : [UICollectionViewLayoutAttributes]]()
         self.sectionHeaderAttributesDict = [Int : UICollectionViewLayoutAttributes]()
         self.sectionFooterAttributesDict = [Int : UICollectionViewLayoutAttributes]()
+        self.collectionViewHeaderAttributes = nil
+        self.collectionViewFooterAttributes = nil
         self.allAttributesArray = [UICollectionViewLayoutAttributes]()
         
         
