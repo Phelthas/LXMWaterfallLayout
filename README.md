@@ -7,17 +7,20 @@ LXMWaterfallLayout is inspired by [CHTCollectionViewWaterfallLayout](https://git
 
 [传送门](http://www.jianshu.com/p/82daa5db4a74)和[传送门](http://www.jianshu.com/p/21f97112cc8e)是我写的总结
 ## Requirements
-Swift3.0    
+Swift3.0 +   
 Xcode8.0 +    
 
 ## Install
 1, CocoaPods    
    add `pod 'LXMWaterfallLayout'` to your podfile and run `pod install`    
-2, Manul    
+2, Manual    
    drag `LXMWaterfallLayout.swift` into your project 
 
 
 ## Updates
+1.0.3    
+* Fix a bug    
+
 1.0.0    
 * Add `horiziontalAlignment` and `verticalAlignment` property, which make `LXMWaterfallLayout` supports alignment now;    
 * Add support for `UICollectionViewScrollDirection.horizontal`    
