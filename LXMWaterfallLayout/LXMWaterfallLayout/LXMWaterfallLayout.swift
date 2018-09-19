@@ -107,7 +107,7 @@ extension LXMWaterfallLayout {
             //sectionHeader
             let sectionHeaderHeight = self.sectionHeaderHeight(atSection: section)
             if sectionHeaderHeight > 0 {
-                let attributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, with: IndexPath(item: 0, section: section))
+                let attributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, with: IndexPath(item: 0, section: section))
                 attributes.frame = CGRect(x: 0, y: contentHeight, width: collectionViewWidth, height: sectionHeaderHeight)
                 self.sectionHeaderAttributesDict?[section] = attributes
                 contentHeight = attributes.frame.maxY
@@ -148,7 +148,7 @@ extension LXMWaterfallLayout {
             //sectionFooter
             let sectionFooterHeight = self.sectionFooterHeight(atSection: section)
             if sectionFooterHeight > 0 {
-                let attributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, with: IndexPath(item: 0, section: section))
+                let attributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, with: IndexPath(item: 0, section: section))
                 attributes.frame = CGRect(x: 0, y: contentHeight, width: collectionViewWidth, height: sectionFooterHeight)
                 self.sectionFooterAttributesDict?[section] = attributes
                 contentHeight = attributes.frame.maxY
@@ -208,9 +208,9 @@ extension LXMWaterfallLayout {
     
     
     open override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        if elementKind == UICollectionElementKindSectionHeader {
+        if elementKind == UICollectionView.elementKindSectionHeader {
             return self.sectionHeaderAttributesDict?[indexPath.section]
-        } else if elementKind == UICollectionElementKindSectionFooter {
+        } else if elementKind == UICollectionView.elementKindSectionFooter {
             return self.sectionFooterAttributesDict?[indexPath.section]
         } else if elementKind == LXMCollectionElementKindHeader {
             return self.collectionViewHeaderAttributes

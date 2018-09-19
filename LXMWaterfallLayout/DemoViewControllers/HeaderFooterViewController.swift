@@ -9,7 +9,7 @@
 import UIKit
 
 class HeaderFooterViewController: DemoBaseViewController {
-    var scrollDirection: UICollectionViewScrollDirection = .vertical
+    var scrollDirection: UICollectionView.ScrollDirection = .vertical
 }
 
 // MARK: - Lifecycle
@@ -30,8 +30,8 @@ extension HeaderFooterViewController {
         self.collectionView.collectionViewLayout = layout
         
         let sectionNib = UINib(nibName: "TestSectionView", bundle: nil)
-        collectionView.register(sectionNib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader , withReuseIdentifier: TestSectionViewIdentifier)
-        collectionView.register(sectionNib, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: TestSectionViewIdentifier)
+        collectionView.register(sectionNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader , withReuseIdentifier: TestSectionViewIdentifier)
+        collectionView.register(sectionNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: TestSectionViewIdentifier)
         collectionView.register(sectionNib, forSupplementaryViewOfKind: LXMCollectionElementKindHeader , withReuseIdentifier: TestSectionViewIdentifier)
         collectionView.register(sectionNib, forSupplementaryViewOfKind: LXMCollectionElementKindFooter, withReuseIdentifier: TestSectionViewIdentifier)
 
@@ -85,13 +85,13 @@ extension HeaderFooterViewController {
 
 extension HeaderFooterViewController {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionElementKindSectionHeader {
+        if kind == UICollectionView.elementKindSectionHeader {
             let sectionView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TestSectionViewIdentifier, for: indexPath) as! TestSectionView
             sectionView.backgroundColor = UIColor.red
             sectionView.nameLabel.text = "sectionHeader \(indexPath.section)"
             return sectionView
             
-        } else if kind == UICollectionElementKindSectionFooter {
+        } else if kind == UICollectionView.elementKindSectionFooter {
             let sectionView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TestSectionViewIdentifier, for: indexPath) as! TestSectionView
             sectionView.backgroundColor = UIColor.blue
             sectionView.nameLabel.text = "sectionFooter \(indexPath.section)"

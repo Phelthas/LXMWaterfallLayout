@@ -40,10 +40,10 @@ extension MyTestLayout {
                 self.allAttributesArray?.append(itemAttributes)
             }
             
-            let headerAttributes = super.layoutAttributesForSupplementaryView(ofKind: UICollectionElementKindSectionHeader, at: IndexPath(item: 0, section: section))
+            let headerAttributes = super.layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: section))
             self.allAttributesArray?.append(headerAttributes)
             
-            let footerAttributes = super.layoutAttributesForSupplementaryView(ofKind: UICollectionElementKindSectionFooter, at: IndexPath(item: 0, section: section))
+            let footerAttributes = super.layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, at: IndexPath(item: 0, section: section))
             self.allAttributesArray?.append(footerAttributes)
             
         }

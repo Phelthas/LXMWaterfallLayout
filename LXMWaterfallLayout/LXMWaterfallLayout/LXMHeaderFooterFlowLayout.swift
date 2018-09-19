@@ -73,11 +73,11 @@ extension LXMHeaderFooterFlowLayout {
             self.sectionItemAttributesDict?[section] = attributesArray.isEmpty ? nil : attributesArray
             self.allAttributesArray?.append(contentsOf: attributesArray)
             
-            var headerAttributes = super.layoutAttributesForSupplementaryView(ofKind: UICollectionElementKindSectionHeader, at: IndexPath(item: 0, section: section))?.copy() as? UICollectionViewLayoutAttributes
+            var headerAttributes = super.layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: section))?.copy() as? UICollectionViewLayoutAttributes
             headerAttributes = self.updateAttributesForHeaderAndFooter(attributes: headerAttributes)
             self.sectionHeaderAttributesDict?[section] = headerAttributes
             
-            var footerAttributes = super.layoutAttributesForSupplementaryView(ofKind: UICollectionElementKindSectionFooter, at: IndexPath(item: 0, section: section))?.copy() as? UICollectionViewLayoutAttributes
+            var footerAttributes = super.layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, at: IndexPath(item: 0, section: section))?.copy() as? UICollectionViewLayoutAttributes
             footerAttributes = self.updateAttributesForHeaderAndFooter(attributes: footerAttributes)
             self.sectionFooterAttributesDict?[section] = footerAttributes
         }
@@ -111,9 +111,9 @@ extension LXMHeaderFooterFlowLayout {
             return self.collectionViewHeaderAttributes
         } else if elementKind == LXMCollectionElementKindFooter {
             return self.collectionViewFooterAttributes
-        } else if elementKind == UICollectionElementKindSectionHeader {
+        } else if elementKind == UICollectionView.elementKindSectionHeader {
             return self.sectionHeaderAttributesDict?[indexPath.section]
-        } else if elementKind == UICollectionElementKindSectionFooter {
+        } else if elementKind == UICollectionView.elementKindSectionFooter {
             return self.sectionFooterAttributesDict?[indexPath.section]
         } else {
             return super.layoutAttributesForSupplementaryView(ofKind: elementKind, at: indexPath)
