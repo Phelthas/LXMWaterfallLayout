@@ -10,6 +10,8 @@ LXMWaterfallLayout is inspired by [CHTCollectionViewWaterfallLayout](https://git
 Swift3.0 +   
 Xcode8.0 +    
 
+
+
 ## Install
 1, CocoaPods    
    add `pod 'LXMWaterfallLayout'` to your podfile and run `pod install`    
@@ -18,6 +20,9 @@ Xcode8.0 +
 
 
 ## Updates
+1.0.4
+* update to Swift4.2，Swift4.1 and before please use 1.0.3
+
 1.0.3    
 * Fix a bug    
 
