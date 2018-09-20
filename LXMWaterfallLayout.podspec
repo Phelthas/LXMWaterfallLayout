@@ -11,7 +11,7 @@ DESC
   s.license      = "MIT"
   s.author       = { "Phelthas" => "billthas@gmail.com" }
   s.platform     = :ios, "8.0"
-  s.swift_version = "4.1"
+  s.swift_version = "4.2"
   s.source       = { :git => "https://github.com/Phelthas/LXMWaterfallLayout.git", :tag => "1.0.4" }
   s.source_files  = "LXMWaterfallLayout/LXMWaterfallLayout/*.swift"
   s.exclude_files = "Classes/Exclude"
