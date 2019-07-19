@@ -337,7 +337,7 @@ private extension LXMWaterfallLayout {
 // MARK: - PublicMethod
 public extension LXMWaterfallLayout {
     
-    public func columnWidth(atSection section: Int) -> CGFloat {
+    func columnWidth(atSection section: Int) -> CGFloat {
         let count = self.columnCount(atSection: section)
         let sectionInset = self.sectionInset(atSection: section)
         let spacing = self.minimumColumnSpacing(atSection: section)
@@ -349,7 +349,7 @@ public extension LXMWaterfallLayout {
         }
     }
     
-    public func itemSize(atIndexPath indexPath: IndexPath) -> CGSize {
+    func itemSize(atIndexPath indexPath: IndexPath) -> CGSize {
         if let collectionView = self.collectionView,
             let itemSize = self.delegate?.collectionView?(collectionView, layout: self, sizeForItemAt: indexPath) {
             let columnWidth = self.columnWidth(atSection: indexPath.section)
