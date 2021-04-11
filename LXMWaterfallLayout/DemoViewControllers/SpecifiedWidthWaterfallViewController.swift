@@ -1,0 +1,160 @@
+//
+//  SpecifiedWidthWaterfallViewController.swift
+//  LXMWaterfallLayout
+//
+//  Created by billthaslu on 2021/4/11.
+//  Copyright © 2021 duowan. All rights reserved.
+//
+
+import UIKit
+
+class SpecifiedWidthWaterfallViewController: DemoBaseViewController {
+
+}
+
+// MARK: - Lifecycle
+extension SpecifiedWidthWaterfallViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+     
+        
+        let layout = LXMWaterfallLayout()
+        layout.columnCount = 3
+        layout.minimumColumnSpacing = 5
+        layout.minimumInteritemSpacing = 20
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 20, bottom: 30, right: 40)
+        layout.sectionHeaderHeight = 100
+        layout.sectionFooterHeight = 50
+        layout.collectionViewHeaderHeight = 200
+        layout.collectionViewFooterHeight = 300
+        
+        self.collectionView.collectionViewLayout = layout
+        
+        let sectionNib = UINib(nibName: "TestSectionView", bundle: nil)
+        collectionView.register(sectionNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader , withReuseIdentifier: TestSectionViewIdentifier)
+        collectionView.register(sectionNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: TestSectionViewIdentifier)
+        collectionView.register(sectionNib, forSupplementaryViewOfKind: LXMCollectionElementKindHeader , withReuseIdentifier: TestSectionViewIdentifier)
+        collectionView.register(sectionNib, forSupplementaryViewOfKind: LXMCollectionElementKindFooter, withReuseIdentifier: TestSectionViewIdentifier)
+        
+        collectionView.contentInset = UIEdgeInsets(top: 10, left: 20, bottom: 30, right: 40)
+
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+}
+
+
+
+// MARK: - override
+extension SpecifiedWidthWaterfallViewController {
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
+            let sectionView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TestSectionViewIdentifier, for: indexPath) as! TestSectionView
+            sectionView.backgroundColor = UIColor.red
+            sectionView.nameLabel.text = "sectionHeader \(indexPath.section)"
+            return sectionView
+            
+        } else if kind == UICollectionView.elementKindSectionFooter {
+            let sectionView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TestSectionViewIdentifier, for: indexPath) as! TestSectionView
+            sectionView.backgroundColor = UIColor.blue
+            sectionView.nameLabel.text = "sectionFooter \(indexPath.section)"
+            return sectionView
+        } else if kind == LXMCollectionElementKindHeader {
+            let sectionView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TestSectionViewIdentifier, for: indexPath) as! TestSectionView
+            sectionView.backgroundColor = UIColor.yellow
+            sectionView.nameLabel.text = "collectionViewHeader"
+            return sectionView
+        } else if kind == LXMCollectionElementKindFooter {
+            let sectionView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TestSectionViewIdentifier, for: indexPath) as! TestSectionView
+            sectionView.backgroundColor = UIColor.green
+            sectionView.nameLabel.text = "collectionViewFooter"
+            return sectionView
+        } else {
+            return UICollectionReusableView()
+        }
+    }
+}
+
+
+extension SpecifiedWidthWaterfallViewController: LXMWaterfallLayoutDelegate {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: LXMWaterfallLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return sizeArray[indexPath.item]
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: LXMWaterfallLayout, columnWidthAtSection section: Int, columnIndex: Int) -> CGFloat {
+        if columnIndex == 0 {
+            return 120;
+        } else if columnIndex == 1 {
+            return 80;
+        } else {
+            return 50;
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: LXMWaterfallLayout, numberOfColumnsAt section: Int) -> Int {
+        if section == 0 {
+            return 3
+        } else if section == 1 {
+            return 2
+        } else {
+            return 1
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: LXMWaterfallLayout, minimumColumnSpacingForSectionAt section: Int) -> CGFloat {
+        if section == 0 {
+            return 20
+        } else if section == 1 {
+            return 10
+        } else {
+            return 30
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: LXMWaterfallLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        if section == 0 {
+            return 20
+        } else if section == 1 {
+            return 10
+        } else {
+            return 30
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: LXMWaterfallLayout, heightForSectionHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 100
+        } else if section == 1 {
+            return 50
+        } else {
+            return 0
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: LXMWaterfallLayout, heightForSectionFooterInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 50
+        } else if section == 1 {
+            return 20
+        } else {
+            return 0
+        }
+    }
+    
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: LXMWaterfallLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if section == 0 {
+            return UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        } else if section == 1 {
+            return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        } else {
+            return UIEdgeInsets(top: 30, left: 30, bottom: 30, right: 30)
+        }
+    }
+}

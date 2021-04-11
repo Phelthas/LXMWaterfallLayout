@@ -25,6 +25,7 @@ class DemoListViewController: UIViewController {
                                            "Horizontal",
                                            "MyTestLayout",
                                            "UICollectionViewFlowLayout",
+                                           "SpecifiedWidthWaterfallViewController",
                                            "Test"]
 
 }
@@ -79,7 +80,10 @@ extension DemoListViewController: UITableViewDelegate {
             viewController = MyTestViewController()
         } else if indexPath.row == 4 {
             viewController = FlowViewController()
-        } else {
+        } else if indexPath.row == 5 {
+            viewController = SpecifiedWidthWaterfallViewController()
+        }
+        else {
             viewController = TestViewController()
         }
         

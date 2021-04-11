@@ -22,6 +22,7 @@
 		439423781F51591C00E0A098 /* HeaderFooterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439423771F51591C00E0A098 /* HeaderFooterViewController.swift */; };
 		4394237C1F516BAB00E0A098 /* LXMLayoutHeaderFooterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4394237B1F516BAB00E0A098 /* LXMLayoutHeaderFooterProtocol.swift */; };
 		4394237E1F5183B100E0A098 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4394237D1F5183B100E0A098 /* TestViewController.swift */; };
+		43A4643F2622F7F7007A418D /* SpecifiedWidthWaterfallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A4643E2622F7F7007A418D /* SpecifiedWidthWaterfallViewController.swift */; };
 		43D57B051F5FCEC500541E5C /* MyTestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D57B041F5FCEC500541E5C /* MyTestLayout.swift */; };
 		43D57B071F5FD7B000541E5C /* MyTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D57B061F5FD7B000541E5C /* MyTestViewController.swift */; };
 		43D591FB1F53B7E700592CF9 /* TestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D591FA1F53B7E700592CF9 /* TestObject.m */; };
@@ -47,6 +48,7 @@
 		439423771F51591C00E0A098 /* HeaderFooterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderFooterViewController.swift; sourceTree = "<group>"; };
 		4394237B1F516BAB00E0A098 /* LXMLayoutHeaderFooterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LXMLayoutHeaderFooterProtocol.swift; sourceTree = "<group>"; };
 		4394237D1F5183B100E0A098 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		43A4643E2622F7F7007A418D /* SpecifiedWidthWaterfallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecifiedWidthWaterfallViewController.swift; sourceTree = "<group>"; };
 		43D57B041F5FCEC500541E5C /* MyTestLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTestLayout.swift; sourceTree = "<group>"; };
 		43D57B061F5FD7B000541E5C /* MyTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTestViewController.swift; sourceTree = "<group>"; };
 		43D591F81F53B7E700592CF9 /* LXMWaterfallLayout-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LXMWaterfallLayout-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 			children = (
 				439423711F51547C00E0A098 /* DemoBaseViewController.swift */,
 				439423731F51550F00E0A098 /* WaterfallViewController.swift */,
+				43A4643E2622F7F7007A418D /* SpecifiedWidthWaterfallViewController.swift */,
 				439423771F51591C00E0A098 /* HeaderFooterViewController.swift */,
 				439423751F51573500E0A098 /* FlowViewController.swift */,
 				43D57B061F5FD7B000541E5C /* MyTestViewController.swift */,
@@ -216,6 +219,7 @@
 				43D57B071F5FD7B000541E5C /* MyTestViewController.swift in Sources */,
 				438100CA1F4D760700ABC6BA /* AppDelegate.swift in Sources */,
 				4394236B1F51542400E0A098 /* TestCollectionViewCell.swift in Sources */,
+				43A4643F2622F7F7007A418D /* SpecifiedWidthWaterfallViewController.swift in Sources */,
 				43D591FB1F53B7E700592CF9 /* TestObject.m in Sources */,
 				439423781F51591C00E0A098 /* HeaderFooterViewController.swift in Sources */,
 				4394237C1F516BAB00E0A098 /* LXMLayoutHeaderFooterProtocol.swift in Sources */,

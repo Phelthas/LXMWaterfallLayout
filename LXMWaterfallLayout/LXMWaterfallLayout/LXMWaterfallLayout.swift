@@ -16,6 +16,10 @@ import UIKit
     
     @objc optional func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: LXMWaterfallLayout, numberOfColumnsAt section: Int) -> Int
     
+    /// 每一列column的具体宽度，如果没有实现或者返回的值小于等于0, 那默认的columnWidth根据列数和间距平均分配
+    /// 注意：需要保证每个section的column总宽度要小于等于collectionViewContentSize.width
+    @objc optional func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: LXMWaterfallLayout, columnWidthAtSection section: Int, columnIndex: Int) -> CGFloat
+    
     @objc optional func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: LXMWaterfallLayout, minimumColumnSpacingForSectionAt section: Int) -> CGFloat
     
     @objc optional func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: LXMWaterfallLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
@@ -52,6 +56,12 @@ open class LXMWaterfallLayout: UICollectionViewLayout, LXMLayoutHeaderFooterProt
     /// 注意：是column的高度，而不是某个具体cell的高度
     fileprivate var columnHeights = [[CGFloat]]()
     
+        
+    /// 这是保存每个section中每个column的offsetX的二维数组，这里用二维数组而不是字典，主要是为了省去字典取值造成的可选绑定
+    /// 注意：是column的offsetX，而不是某个具体column的宽度或者高度
+    fileprivate var columnOffsetXs = [[CGFloat]]()
+    
+    
 }
 
 
@@ -87,6 +97,18 @@ extension LXMWaterfallLayout {
             }
             self.columnHeights.append(columnHeightArray)
             
+            let inset = self.sectionInset(atSection: section)
+            let columnSpacing = self.minimumColumnSpacing(atSection: section)
+            var offsetX = inset.left
+            var offsetXArray = [CGFloat]()
+            offsetXArray.append(offsetX)
+            for i in 0 ..< columnCount - 1 {
+                let columnWidth = self.columnWidth(atSection: section, columnIndex: i)
+                offsetX += columnWidth + columnSpacing;
+                offsetXArray.append(offsetX)
+            }
+            self.columnOffsetXs.append(offsetXArray)
+            
             //初始化sectionItemAttributesDict
             var attributesArray = [UICollectionViewLayoutAttributes]()
             let itemCount = collectionView.numberOfItems(inSection: section)
@@ -100,7 +122,6 @@ extension LXMWaterfallLayout {
         
         for section in 0 ..< numberOfSections {
             
-            let columnSpacing = self.minimumColumnSpacing(atSection: section)
             let itemSpacing = self.minimumInteritemSpacing(atSection: section)
             let inset = self.sectionInset(atSection: section)
             
@@ -119,20 +140,19 @@ extension LXMWaterfallLayout {
             contentHeight += inset.top
             
             //sectionItem
-            let columnWidth = self.columnWidth(atSection: section)
             
             for index in 0 ..< itemCount {
                 let indexPath = IndexPath(item: index, section: section)
                 let columnIndex = self.nextColumnIndexForItem(atIndexPath: indexPath)
                 let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-                let offsetX = inset.left + CGFloat(columnIndex) * (columnWidth + columnSpacing)
+                let offsetX = self.columnOffsetXs[section][columnIndex]
                 var offsetY = self.columnHeights[section][columnIndex]
-                if offsetY != 0 { //注意，如果offsetY == 0说明是改列第一个，不用加spacing
+                if offsetY != 0 { //注意，如果offsetY == 0说明是该列第一个，不用加spacing
                     offsetY += itemSpacing
                 }
                 offsetY += contentHeight
                 
-                let size = self.itemSize(atIndexPath: indexPath)
+                let size = self.itemSize(atIndexPath: indexPath, columnIndex: columnIndex)
                 attributes.frame = CGRect(x: offsetX, y: offsetY, width: size.width, height: size.height)
                 self.columnHeights[section][columnIndex] = attributes.frame.maxY - contentHeight
                 self.sectionItemAttributesDict?[indexPath.section]?[indexPath.item] = attributes
@@ -337,7 +357,42 @@ private extension LXMWaterfallLayout {
 // MARK: - PublicMethod
 public extension LXMWaterfallLayout {
     
-    func columnWidth(atSection section: Int) -> CGFloat {
+//    func columnWidth(atSection section: Int) -> CGFloat {
+//        let count = self.columnCount(atSection: section)
+//        let sectionInset = self.sectionInset(atSection: section)
+//        let spacing = self.minimumColumnSpacing(atSection: section)
+//        let width = self.collectionViewContentSize.width - sectionInset.left - sectionInset.right
+//        if count > 1 {
+//            return floor((width - CGFloat(count - 1) * spacing) / CGFloat(count))
+//        } else {
+//            return width
+//        }
+//    }
+//
+//
+//    func itemSize(atIndexPath indexPath: IndexPath) -> CGSize {
+//        if let collectionView = self.collectionView,
+//            let itemSize = self.delegate?.collectionView?(collectionView, layout: self, sizeForItemAt: indexPath) {
+//            let columnWidth = self.columnWidth(atSection: indexPath.section)
+//            if itemSize.width == columnWidth {
+//                return itemSize
+//            } else {
+//                return self.scaledSize(forOriginalSize: itemSize, limitWidth: columnWidth)
+//            }
+//        } else {
+//            let columnWidth = self.columnWidth(atSection: indexPath.section)
+//            return CGSize(width: columnWidth, height: columnWidth)
+//        }
+//    }
+    
+    
+    func columnWidth(atSection section: Int, columnIndex: Int) -> CGFloat {
+        if let collectionView = self.collectionView,
+           let columnWidth = self.delegate?.collectionView?(collectionView, layout: self, columnWidthAtSection: section, columnIndex: columnIndex) {
+            assert(columnWidth > 0, "columnWidth must be greater than 0 at section \(section)!!!")
+            return columnWidth
+        }
+    
         let count = self.columnCount(atSection: section)
         let sectionInset = self.sectionInset(atSection: section)
         let spacing = self.minimumColumnSpacing(atSection: section)
@@ -349,17 +404,17 @@ public extension LXMWaterfallLayout {
         }
     }
     
-    func itemSize(atIndexPath indexPath: IndexPath) -> CGSize {
+    func itemSize(atIndexPath indexPath: IndexPath, columnIndex: Int) -> CGSize {
         if let collectionView = self.collectionView,
             let itemSize = self.delegate?.collectionView?(collectionView, layout: self, sizeForItemAt: indexPath) {
-            let columnWidth = self.columnWidth(atSection: indexPath.section)
+            let columnWidth = self.columnWidth(atSection: indexPath.section, columnIndex: columnIndex)
             if itemSize.width == columnWidth {
                 return itemSize
             } else {
                 return self.scaledSize(forOriginalSize: itemSize, limitWidth: columnWidth)
             }
         } else {
-            let columnWidth = self.columnWidth(atSection: indexPath.section)
+            let columnWidth = self.columnWidth(atSection: indexPath.section, columnIndex: columnIndex)
             return CGSize(width: columnWidth, height: columnWidth)
         }
     }
