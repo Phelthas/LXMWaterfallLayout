@@ -47,9 +47,11 @@ extension DemoBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(collectionView)
-        
-        
-        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        collectionView.frame = self.view.bounds
     }
     
     override func didReceiveMemoryWarning() {
