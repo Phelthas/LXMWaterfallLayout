@@ -20,6 +20,11 @@ Xcode8.0 +
 
 
 ## Updates
+
+1.0.6    
+* add `LXMHorizontalMenuLayout`;    
+
+
 1.0.4
 * update to Swift4.2，Swift4.1 and before please use 1.0.3
 
