@@ -31,6 +31,9 @@ open class LXMHorizontalMenuLayout: UICollectionViewLayout {
     /// item正常排布时的contentWidth，包含间距和SectionInset
     fileprivate var normalContentWidth: CGFloat = 0
     
+    /// item正常排布时的contentHeight，包含间距和SectionInset
+    fileprivate var normalContentHeight: CGFloat = 0
+    
     /// 所有item的Attributes数组
     fileprivate var itemAttributesArray = [UICollectionViewLayoutAttributes]()
     
@@ -52,9 +55,10 @@ extension LXMHorizontalMenuLayout {
         
         self.itemAttributesArray.removeAll()
         self.normalContentWidth = self.sectionInset.left
+        self.normalContentHeight = 0
         self.itemTotalWidth = 0
         for index in 0 ..< itemCount {
-            let itemAttributes = UICollectionViewLayoutAttributes(forCellWith: IndexPath(item: index, section: 0)).copy() as! UICollectionViewLayoutAttributes
+            let itemAttributes = UICollectionViewLayoutAttributes(forCellWith: IndexPath(item: index, section: 0))
             let itemSize = self.delegateItemSizeForCellAtIndex(index: index)
             itemAttributes.frame = CGRect(x: self.normalContentWidth, y: self.sectionInset.top, width: itemSize.width, height: itemSize.height)
             self.itemAttributesArray.append(itemAttributes)
@@ -63,9 +67,12 @@ extension LXMHorizontalMenuLayout {
             if index != itemCount - 1 {
                 self.normalContentWidth += self.interitemSpacing
             }
-            
+            if itemSize.height > self.normalContentHeight {
+                self.normalContentHeight = itemSize.height
+            }
         }
         self.normalContentWidth += self.sectionInset.right;
+        self.normalContentHeight += self.sectionInset.top + self.sectionInset.bottom
 
         if self.shouldAdjustItemFrame() {
             self.updateAttributesForEvenLayout()
@@ -95,9 +102,9 @@ extension LXMHorizontalMenuLayout {
     
     open override var collectionViewContentSize: CGSize {
         if self.shouldAdjustItemFrame() {
-            return self.collectionView?.bounds.size ?? CGSize.zero
+            return CGSize(width: self.collectionView?.bounds.width ?? 0, height: self.normalContentHeight)
         } else {
-            return CGSize(width: self.normalContentWidth, height: self.collectionView?.bounds.size.height ?? 0)
+            return CGSize(width: self.normalContentWidth, height: self.normalContentHeight)
         }
     }
     
